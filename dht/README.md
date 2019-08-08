@@ -1,4 +1,4 @@
-## Temperature and humidity with DHT11, DHT12, or DHT22 example
+## Temperature and humidity with DHT11, DHT21, or DHT22 example
 
 A simple example demonstrating muwerk's scheduler, munet interface to WLAN, NTP, OTA and MQTT, and simple hardware (switch and led).
 
