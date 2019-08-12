@@ -44,7 +44,7 @@ void setup() {
     led.begin(&sched);
     toggleswitch.begin(&sched);
 
-    //led.setmode(led.Mode::PULSE,1000);
+    //led.setMode(led.Mode::PULSE,1000);
     sched.subscribe(tID, "mySwitch/switch/state", switch_messages);
 }
 
