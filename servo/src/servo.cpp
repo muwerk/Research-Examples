@@ -16,20 +16,31 @@ ustd::Scheduler sched(10,16,32);
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
-ustd::Led led("myLed",D5,false);
-ustd::Switch toggleswitch("mySwitch",D6, false);
+ustd::Led ledg("myLed1",D5,false);
+ustd::Led ledr("myLed2",D6,false);
+ustd::Switch toggleswitch("mySwitch",D7, false);
 ustd::I2CPWM servo("myServo",ustd::I2CPWM::Mode::SERVO);
 
+int flipflop=0;
+bool active=false;
 void switch_messages(String topic, String msg, String originator) {
     Serial.println("Switch received: "+topic+"|"+msg);
     if (topic == "mySwitch/switch/state") {
         if (msg=="on") {
-            led.set(true);
-            servo.setUnitLevel(0,0.0);
+            if (!flipflop) {
+                ledg.set(true);
+                ledr.set(false);
+                flipflop=1;
+                active=true;
+            } else {
+                ledr.set(true);
+                ledg.set(false);
+                active=false;
+                flipflop=0;
+                servo.setState(0,false);
+            }
             //sched.publish("myLed/led/set","on");
         } else {
-            led.set(false);
-            servo.setUnitLevel(0,1.0);
             //sched.publish("myLed/led/set","off");
         }
     }
@@ -44,8 +55,9 @@ void setup() {
     net.begin(&sched);
     mqtt.begin(&sched);
     ota.begin(&sched);
-    int tID = sched.add(appLoop, "main", 1000000);
-    led.begin(&sched);
+    int tID = sched.add(appLoop, "main", 200000);
+    ledr.begin(&sched);
+    ledg.begin(&sched);
     toggleswitch.begin(&sched);
     servo.begin(&sched);
 
@@ -53,9 +65,13 @@ void setup() {
     sched.subscribe(tID, "mySwitch/switch/state", switch_messages);
 }
 
+double count=0.2;
 void appLoop() {
-    //if (led.state) led.set(false);
-    //else led.set(true);
+    if (active) {
+        servo.setUnitLevel(0,count);
+        count+=0.6;
+        if (count>1.0) count=0.2;
+    }
 }
 
 // Never add code to this loop, use appLoop() instead.
