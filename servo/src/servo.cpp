@@ -55,7 +55,7 @@ void setup() {
     net.begin(&sched);
     mqtt.begin(&sched);
     ota.begin(&sched);
-    int tID = sched.add(appLoop, "main", 100000);
+    int tID = sched.add(appLoop, "main", 160000);
     ledr.begin(&sched);
     ledg.begin(&sched);
     toggleswitch.begin(&sched);
