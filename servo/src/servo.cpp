@@ -55,7 +55,7 @@ void setup() {
     net.begin(&sched);
     mqtt.begin(&sched);
     ota.begin(&sched);
-    int tID = sched.add(appLoop, "main", 200000);
+    int tID = sched.add(appLoop, "main", 100000);
     ledr.begin(&sched);
     ledg.begin(&sched);
     toggleswitch.begin(&sched);
@@ -65,12 +65,15 @@ void setup() {
     sched.subscribe(tID, "mySwitch/switch/state", switch_messages);
 }
 
-double count=0.2;
+double count=0.0;
 void appLoop() {
     if (active) {
-        servo.setUnitLevel(0,count);
-        count+=0.6;
-        if (count>1.0) count=0.2;
+        if (count<0.0)
+            servo.setUnitLevel(0,0.0);
+        else
+            servo.setUnitLevel(0,count);
+        count+=0.2;
+        if (count>1.0) count=-0.60;
     }
 }
 
