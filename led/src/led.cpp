@@ -16,7 +16,7 @@ ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 ustd::Led led("myLed",D5,false);
-ustd::Switch toggleswitch("mySwitch",D6, false);
+ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::NORMAL, false);
 
 void switch_messages(String topic, String msg, String originator) {
     Serial.println("Switch received: "+topic+"|"+msg);
