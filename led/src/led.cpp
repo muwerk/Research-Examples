@@ -16,7 +16,7 @@ ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 ustd::Led ledblue("LedBlue",D8,false);
-ustd::Switch switchblack("switchblack",D7, ustd::Switch::Mode::Default, false);
+ustd::Switch switchblack("switchblack",D7, ustd::Switch::Mode::Flipflop, false);
 ustd::Led ledyellow("LedYellow",D6,false);
 ustd::Switch switchblue("switchblue",D5, ustd::Switch::Mode::Flipflop, false);
 
@@ -26,14 +26,16 @@ void switch_messages(String topic, String msg, String originator) {
     #endif
     if (topic == "switchblack/switch/state") {
         if (msg=="on") {
-            ledblue.set(true);
+            ledblue.setMode(ustd::Led::Mode::Blink, 500,0.0);
+//            ledblue.set(true);
         } else {
             ledblue.set(false);
         }
     }
     if (topic == "switchblue/switch/state") {
         if (msg=="on") {
-            ledyellow.set(true);
+            ledyellow.setMode(ustd::Led::Mode::Blink, 500,0.5);
+//            ledyellow.set(true);
         } else {
             ledyellow.set(false);
         }
