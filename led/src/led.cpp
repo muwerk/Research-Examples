@@ -19,7 +19,9 @@ ustd::Led led("myLed",D5,false);
 ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Default, false);
 
 void switch_messages(String topic, String msg, String originator) {
+#ifdef USE_SERIAL_DBG
     Serial.println("Switch received: "+topic+"|"+msg);
+#endif
     if (topic == "mySwitch/switch/state") {
         if (msg=="on") {
             led.set(true);
@@ -44,13 +46,11 @@ void setup() {
     led.begin(&sched);
     toggleswitch.begin(&sched);
 
-    //led.setMode(led.Mode::PULSE,1000);
+    //led.setMode(led.Mode::Wave,1000);
     sched.subscribe(tID, "mySwitch/switch/state", switch_messages);
 }
 
 void appLoop() {
-    //if (led.state) led.set(false);
-    //else led.set(true);
 }
 
 // Never add code to this loop, use appLoop() instead.
