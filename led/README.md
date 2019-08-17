@@ -20,6 +20,11 @@ Default-mode:
 mosquitto_pub -h <hostname-of-mqtt-server> -t <hostname-of-board>/mySwitch/switch/mode/set -m "default"
 ```
 
+Let led signal a pattern (e.g. POST code):
+```bash
+mosquitto_pub -h <hostname-of-mqtt-server> -t <hostname-of-board>/myLed/led/mode/set -m "pattern +-+-+-+++-+++-+++-+-+-+---r,100"
+```
+
 Subscribe to receive messages from the board about state changes:
 ```bash
 mosquitto_sub -h <hostname-of-mqtt-server> -v -t omu/#
