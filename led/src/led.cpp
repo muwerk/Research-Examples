@@ -18,7 +18,7 @@ ustd::Ota ota;
 ustd::Led led("myLed",D5,false);
 ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Default, false);
 // Optional IRQ support: (each switch needs unique interruptIndex [0..9])
-// ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Default, false, "mySwitch/switch/IRQ/0", 0);
+// ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Default, false, "mySwitch/switch/IRQ/0", 0, 5);
 
 void switch_messages(String topic, String msg, String originator) {
 #ifdef USE_SERIAL_DBG
