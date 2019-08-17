@@ -12,17 +12,17 @@ can be accessed externally:
 
 To set the switch into timer mode:
 ```bash
-mosquitto_pub -h <hostname-of-board> -t <hostname-of-board>/mySwitch/switch/mode/set -m "timer 1000"
+mosquitto_pub -h <hostname-of-mqtt-server> -t <hostname-of-board>/mySwitch/switch/mode/set -m "timer 1000"
 ```
 
 Default-mode:
 ```bash
-mosquitto_pub -h <hostname-of-board> -t <hostname-of-board>/mySwitch/switch/mode/set -m "default"
+mosquitto_pub -h <hostname-of-mqtt-server> -t <hostname-of-board>/mySwitch/switch/mode/set -m "default"
 ```
 
 Subscribe to receive messages from the board about state changes:
 ```bash
-mosquitto_sub -h <hostname-of-board> -v -t omu/#
+mosquitto_sub -h <hostname-of-mqtt-server> -v -t omu/#
 
 omu/testwemos/mySwitch/switch/state off
 omu/testwemos/myLed/led/unitluminosity 0.0
