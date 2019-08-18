@@ -16,9 +16,9 @@ ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 ustd::Led led("myLed",D5,false);
-ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Default, false);
+// ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Default, false);
 // Optional IRQ support: (each switch needs unique interruptIndex [0..9])
-// ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Default, false, "mySwitch/switch/IRQ/0", 0, 5);
+ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Rising, false, "mySwitch/switch/IRQ/0", 0, 25);
 
 void switch_messages(String topic, String msg, String originator) {
 #ifdef USE_SERIAL_DBG
@@ -28,9 +28,11 @@ void switch_messages(String topic, String msg, String originator) {
         if (msg=="on") {
             led.set(true);
             //sched.publish("myLed/led/set","on");
-        } else {
+        } else if (msg=="off") {
             led.set(false);
             //sched.publish("myLed/led/set","off");
+        } else if (msg=="trigger") {
+            led.setMode(ustd::Led::Mode::Pulse, 50);
         }
     }
 }
