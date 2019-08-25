@@ -1,4 +1,6 @@
-# Examples
+Note: these examples rely on the yet unfinished (and not yet published to the Arduino library repository) project [mupplets](https://github.com/muwerk/mupplets). To use the examples, simply manually add the mupplet `*.h` files to the example projects.
+
+# Examples [WIP]
 
 Examples and test code for muwerk libraries ustd, munet, muwerk
 
