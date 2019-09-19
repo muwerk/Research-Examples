@@ -7,6 +7,8 @@
 #include "mqtt.h"
 #endif
 
+#include "../../../ustd/functional.h"
+
 void appLoop();
 
 ustd::Scheduler sched;  // = ustd::scheduler();
