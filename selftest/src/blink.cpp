@@ -6,9 +6,6 @@
 #include "net.h"
 #include "mqtt.h"
 #endif
-
-#include "../../../ustd/functional.h"
-
 void appLoop();
 
 ustd::Scheduler sched;  // = ustd::scheduler();
@@ -191,12 +188,17 @@ void setup() {
     testcases();
 #endif
 
+#ifndef __ATTINY__
     tID = sched.add(appLoop, "main");
+#endif
 
+#ifndef __ATTINY__
     sched.subscribe(tID, "led", task0);
 #if defined(__ESP__)
     sched.subscribe(tID, "net/rssi", netconnect);
 #endif
+#endif
+
 #ifndef __ATTINY__
     sched.add(task1, "task1", 50000L);
 #endif
