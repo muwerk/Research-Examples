@@ -32,27 +32,40 @@ void setup() {
 
     delay(50);
     mp3.begin(&sched);
-    delay(50);
+    delay(150);
     mp3.setVolume(10);
-    delay(50);
+    delay(150);
     //mp3.play();
-    delay(50);
+    delay(150);
     mp3.playFolderTrack(1,2);
 }
 
 bool doneBim=false;
 time_t rtime=0;
+int leftbims=0;
 void appLoop() {
 
     if (time(nullptr)==rtime) {
-        rtime=0;
-        mp3.stopInterleave();
+        if (leftbims>0) {
+            mp3.stopInterleave();
+            delay(100);
+            mp3.interleaveFolderTrack(1,3);
+            leftbims--;
+            rtime=time(nullptr)+1;
+        } else {
+            rtime=0;
+            mp3.stopInterleave();
+        }
     }
-    if (!(time(nullptr) % 60)) {\
+    if (!(time(nullptr) % 3600)) {\
         if (!doneBim) {
             mp3.interleaveFolderTrack(1,3);
             doneBim=true;
-            rtime=time(nullptr)+3;
+            time_t ntime=time(nullptr);
+            rtime=ntime+1;
+            struct tm* ptm=localtime(&ntime);
+            leftbims=ptm->tm_hour-1;
+            if (ptm->tm_hour>12) leftbims-=12;
         }
     } else {
         doneBim=false;
