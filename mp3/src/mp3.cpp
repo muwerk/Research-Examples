@@ -29,17 +29,11 @@ void setup() {
     shifter.set(0x09);
 
     /* int tID = */ 
-    //sched.add(appLoop, "main", 50000);
+    sched.add(appLoop, "main", 50000);
 
-    delay(50);
     mp3.begin(&sched);
-    delay(150);
     mp3.setVolume(10);
-    delay(150);
-    mp3.setRepeatMode(ustd::Mp3PlayerProtocol::RepeatMode::once);
-    delay(150);
-    mp3.playFolderTrack(1,3);
-    delay(150);
+    mp3.playFolderTrack(1,2);
 }
 
 bool doneBim=false;
@@ -47,24 +41,27 @@ time_t rtime=0;
 int leftbims=0;
 void appLoop() {
 
-    if (time(nullptr)==rtime) {
+    if (time(nullptr)>=rtime) {
         if (leftbims>0) {
-            mp3.stopInterleave();
-            delay(100);
+            //mp3.stopInterleave();
             mp3.interleaveFolderTrack(1,3);
             leftbims--;
-            rtime=time(nullptr)+1;
+            if (leftbims>0) {
+                rtime=time(nullptr)+3;
+            } else {
+                    rtime=0;
+            }
         } else {
             rtime=0;
-            mp3.stopInterleave();
+            //mp3.stopInterleave();
         }
     }
-    if (!(time(nullptr) % 3600)) {\
+    if (!(time(nullptr) % 60)) {\
         if (!doneBim) {
             mp3.interleaveFolderTrack(1,3);
             doneBim=true;
             time_t ntime=time(nullptr);
-            rtime=ntime+1;
+            rtime=ntime+3;
             struct tm* ptm=localtime(&ntime);
             leftbims=ptm->tm_hour-1;
             if (ptm->tm_hour>12) leftbims-=12;
