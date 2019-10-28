@@ -28,16 +28,18 @@ void setup() {
     shifter.begin(&sched);
     shifter.set(0x09);
 
-    /* int tID = */ sched.add(appLoop, "main", 50000);
+    /* int tID = */ 
+    //sched.add(appLoop, "main", 50000);
 
     delay(50);
     mp3.begin(&sched);
     delay(150);
     mp3.setVolume(10);
     delay(150);
-    //mp3.play();
+    mp3.setRepeatMode(ustd::Mp3PlayerProtocol::RepeatMode::once);
     delay(150);
-    mp3.playFolderTrack(1,2);
+    mp3.playFolderTrack(1,3);
+    delay(150);
 }
 
 bool doneBim=false;
