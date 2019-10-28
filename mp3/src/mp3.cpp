@@ -32,8 +32,8 @@ void setup() {
     sched.add(appLoop, "main", 50000);
 
     mp3.begin(&sched);
-    mp3.setVolume(10);
-    mp3.playFolderTrack(1,2);
+    mp3.setVolume(4);
+    mp3.playFolderTrack(1,1);
 }
 
 bool doneBim=false;
@@ -56,7 +56,7 @@ void appLoop() {
             //mp3.stopInterleave();
         }
     }
-    if (!(time(nullptr) % 60)) {\
+    if (!(time(nullptr) % 3600)) {\
         if (!doneBim) {
             mp3.interleaveFolderTrack(1,3);
             doneBim=true;
