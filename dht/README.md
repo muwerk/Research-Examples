@@ -5,6 +5,8 @@ A simple example demonstrating muwerk's scheduler, munet interface to WLAN, NTP,
 <img src="https://github.com/muwerk/mupplets/blob/master/Resources/dht.png" width="30%" height="30%">
 Hardware: 10kΩ, DHT22 sensor.
 
+* Please check [application notes](https://github.com/muwerk/mupplets#dht22-dht11-dht21-temperature-and-humidity-sensors)
+
 The example publishes temperature and humidity changes to MQTT:
 
 ```bash
