@@ -7,7 +7,7 @@
 #include "mqtt.h"
 #include "ota.h"
 
-#include "../../../mupplets/shift_reg_74595.h"
+//#include "../../../mupplets/shift_reg_74595.h"
 #include "../../../mupplets/mp3.h"
 
 void appLoop();
@@ -17,20 +17,24 @@ ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 
-ustd::ShiftReg shifter("shifter",D5,D6,D7);
+//ustd::ShiftReg shifter("shifter",D5,D6,D7);
 
+#ifdef __ESP32__
+ustd::Mp3Player mp3("mp3", &Serial1, ustd::Mp3Player::MP3_PLAYER_TYPE::OPENSMART);
+#else // !__ESP32__
 #ifdef USE_SERIAL_DBG
 #error You cannot use define USE_SERIAL_DBG with MP3 mupplet, since the serial port is needed for the communication with the MP3 hardware!
-#endif
+#endif // USE_SERIAL_DBG
 ustd::Mp3Player mp3("mp3", &Serial, ustd::Mp3Player::MP3_PLAYER_TYPE::OPENSMART);
+#endif // !__ESP32__
 
 void setup() {
     net.begin(&sched);
     mqtt.begin(&sched);
     ota.begin(&sched);
 
-    shifter.begin(&sched);
-    shifter.set(0x09);
+    //shifter.begin(&sched);
+    //shifter.set(0x09);
 
     /* int tID = */ 
     sched.add(appLoop, "main", 50000);
