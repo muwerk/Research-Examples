@@ -38,10 +38,10 @@ void switch_messages(String topic, String msg, String originator) {
     if (topic == "mySwitch/switch/state") {
         if (msg=="on") {
             led.set(true);
-            sched.publish("relay/myLed/led/set","on");
+            // sched.publish("relay/myLed/led/set","on");
         } else if (msg=="off") {
             led.set(false);
-            sched.publish("relay/myLed/led/set","off");
+            // sched.publish("relay/myLed/led/set","off");
         } else if (msg=="trigger") {
             led.setMode(ustd::Led::Mode::Pulse, 50);
         }
@@ -49,7 +49,7 @@ void switch_messages(String topic, String msg, String originator) {
 }
 
 void mqttCallback(String topic, String msg, String originator) {
-    sched.publish("!ledapp/mqtt/relay",msg);
+    // sched.publish("!ledapp/mqtt/relay",msg);
 }
 
 void setup() {
@@ -69,7 +69,7 @@ void setup() {
 
     // led.setMode(led.Mode::Blink,1000);
     sched.subscribe(tID, "mySwitch/switch/state", switch_messages);
-    sched.subscribe(tID,"mqtt/state",mqttCallback);
+    // sched.subscribe(tID,"mqtt/state",mqttCallback);
 }
 
 void appLoop() {
