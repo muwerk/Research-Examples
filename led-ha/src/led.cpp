@@ -56,6 +56,7 @@ void setup() {
     int tID = sched.add(appLoop, "main", 1000000); // every 1000000 micro sec = once a second call appLoop
     led.begin(&sched);
     toggleswitch.begin(&sched);
+    toggleswitch.setMode(ustd::Switch::Mode::Flipflop);
 
     // Use Home Assistant's auto-discovery to register switch and led in HA with names DigiTast, Blaue Led.
     toggleswitch.registerHomeAssistant("DigiTast");
