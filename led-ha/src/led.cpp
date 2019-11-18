@@ -19,14 +19,15 @@ ustd::Ota ota;
 
 #ifdef __ESP32__
 ustd::Led led("myLed",14,false);
-ustd::Switch toggleswitch("mySwitch",32, ustd::Switch::Mode::Default, false);
+//ustd::Switch toggleswitch("mySwitch",32, ustd::Switch::Mode::Default, false);
+// Optional IRQ support: (each switch needs unique interruptIndex [0..9])
+ustd::Switch toggleswitch("mySwitch",32, ustd::Switch::Mode::Flipflop, false, "mySwitch/switch/IRQ/0", 0, 25);
 #else
 ustd::Led led("myLed",D5,false);
 ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Default, false);
-#endif
-// ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Default, false);
 // Optional IRQ support: (each switch needs unique interruptIndex [0..9])
 // ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Flipflop, false, "mySwitch/switch/IRQ/0", 0, 25);
+#endif
 
 void switch_messages(String topic, String msg, String originator) {
 #ifdef USE_SERIAL_DBG
