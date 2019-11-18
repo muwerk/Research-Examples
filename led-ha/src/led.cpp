@@ -7,10 +7,6 @@
 #include "mqtt.h"
 //#include "ota.h"
 
-//#include "/home/dsc/gith/muwerk/munet/net.h"
-//#include "/home/dsc/gith/muwerk/munet/mqtt.h"
-//#include "/home/dsc/gith/muwerk/munet/ota.h"
-
 #include "led.h"
 #include "switch.h"
 
@@ -20,6 +16,7 @@ ustd::Scheduler sched(10,16,32);
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 //ustd::Ota ota;
+
 #ifdef __ESP32__
 ustd::Led led("myLed",14,false);
 ustd::Switch toggleswitch("mySwitch",32, ustd::Switch::Mode::Default, false);
@@ -48,10 +45,6 @@ void switch_messages(String topic, String msg, String originator) {
     }
 }
 
-void mqttCallback(String topic, String msg, String originator) {
-    // sched.publish("!ledapp/mqtt/relay",msg);
-}
-
 void setup() {
 #ifdef USE_SERIAL_DBG
     Serial.begin(115200);
@@ -60,20 +53,19 @@ void setup() {
     net.begin(&sched);
     mqtt.begin(&sched);
     //ota.begin(&sched);
-    int tID = sched.add(appLoop, "main", 1000000);
+    int tID = sched.add(appLoop, "main", 1000000); // every 1000000 micro sec = once a second call appLoop
     led.begin(&sched);
     toggleswitch.begin(&sched);
 
     // Use Home Assistant's auto-discovery to register switch in HA with name DigiSwitch
     toggleswitch.registerHomeAssistant("DigiTast");
+    led.registerHomeAssistant("Blaue Led");
 
     // led.setMode(led.Mode::Blink,1000);
     sched.subscribe(tID, "mySwitch/switch/state", switch_messages);
-    // sched.subscribe(tID,"mqtt/state",mqttCallback);
 }
 
 void appLoop() {
-    //sched.publish("!testdirect/for/example","no message here");
 }
 
 // Never add code to this loop, use appLoop() instead.
