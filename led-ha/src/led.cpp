@@ -5,7 +5,7 @@
 
 #include "net.h"
 #include "mqtt.h"
-//#include "ota.h"
+#include "ota.h"
 
 #include "led.h"
 #include "switch.h"
@@ -15,7 +15,7 @@ void appLoop();
 ustd::Scheduler sched(10,16,32);
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
-//ustd::Ota ota;
+ustd::Ota ota;
 
 #ifdef __ESP32__
 ustd::Led led("myLed",14,false);
@@ -52,7 +52,7 @@ void setup() {
 #endif  // USE_SERIAL_DBG
     net.begin(&sched);
     mqtt.begin(&sched);
-    //ota.begin(&sched);
+    ota.begin(&sched);
     int tID = sched.add(appLoop, "main", 1000000); // every 1000000 micro sec = once a second call appLoop
     led.begin(&sched);
     toggleswitch.begin(&sched);
