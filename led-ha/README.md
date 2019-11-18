@@ -1,6 +1,14 @@
-## Switch and led example
+## Switch and led example with Home Assistant support
 
-A simple example demonstrating muwerk's scheduler, munet interface to WLAN, NTP, OTA and MQTT, and simple hardware (switch and led).
+A simple example demonstrating muwerk's scheduler, munet interface to WLAN, NTP, OTA and MQTT, and simple hardware (switch and led). Both led and switch autoregister as entities in Home Assistant using auto-discovery.
+
+Home Assistant support requires just a single line of code per entity:
+
+```cpp
+    // Use Home Assistant's auto-discovery to register switch and led in HA
+    toggleswitch.registerHomeAssistant("DigiTast");
+    led.registerHomeAssistant("Blaue Led");
+```
 
 <img src="https://github.com/muwerk/mupplets/blob/master/Resources/switch.png" width="50%" height="30%">
 Hardware: 330Ω resistor, led, switch.
@@ -45,3 +53,4 @@ omu/testwemos/myLed/led/state off
 * [muwerk scheduler and messaging](https://github.com/muwerk/muwerk)
 * [munet networking and mqtt](https://github.com/muwerk/munet)
 * [documentation of hardware mupplets and supported MQTT messages](https://github.com/muwerk/mupplets)
+* [Home Assistant's auto-discovery for MQTT](https://www.home-assistant.io/docs/mqtt/discovery/)

@@ -57,7 +57,7 @@ void setup() {
     led.begin(&sched);
     toggleswitch.begin(&sched);
 
-    // Use Home Assistant's auto-discovery to register switch in HA with name DigiSwitch
+    // Use Home Assistant's auto-discovery to register switch and led in HA with names DigiTast, Blaue Led.
     toggleswitch.registerHomeAssistant("DigiTast");
     led.registerHomeAssistant("Blaue Led");
 
