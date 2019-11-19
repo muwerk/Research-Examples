@@ -7,6 +7,7 @@
 #include "ota.h"
 
 #include "ldr.h"
+#include "lumin.h"
 
 void appLoop();
 
@@ -19,6 +20,7 @@ ustd::Ldr ldr("myLdr",A9); // caution: ADC #2 conflicts with wifi!
 #else
 ustd::Ldr ldr("myLdr",A0);
 #endif
+ustd::Lumin lum("myLum",0x39); 
 
 void setup() {
 #ifdef USE_SERIAL_DBG
@@ -30,6 +32,7 @@ void setup() {
     ota.begin(&sched);
     int tID = sched.add(appLoop, "main", 1000000);
     ldr.begin(&sched);
+    lum.begin(&sched);
 }
 
 void appLoop() {
