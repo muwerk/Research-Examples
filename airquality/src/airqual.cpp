@@ -25,22 +25,22 @@ void sensor_messages(String topic, String msg, String originator) {
 #ifdef USE_SERIAL_DBG
     Serial.println("Switch received: "+topic+"|"+msg);
 #endif
-    if (topic == "myDht/temperature") {
+    if (topic == "myDht/sensor/temperature") {
 #ifdef USE_SERIAL_DBG
         Serial.println("Temperature: "+msg);
 #endif
     }
-    if (topic == "myDht/humidity") {
+    if (topic == "myDht/sensor/humidity") {
 #ifdef USE_SERIAL_DBG
         Serial.println("Humidity: "+msg);
 #endif
     }
-    if (topic == "myAirQuality/co2") {
+    if (topic == "myAirQuality/sensor/co2") {
 #ifdef USE_SERIAL_DBG
         Serial.println("CO2: "+msg);
 #endif
     }
-    if (topic == "myAirQuality/voc") {
+    if (topic == "myAirQuality/sensor/voc") {
 #ifdef USE_SERIAL_DBG
         Serial.println("VOC: "+msg);
 #endif
@@ -100,9 +100,9 @@ void setup() {
     airqual.begin(&sched);
     pressure.begin(&sched);
 
-    sched.subscribe(tID, "myDht/#", sensor_messages);
-    sched.subscribe(tID, "myAirQuality/#", sensor_messages);
-    sched.subscribe(tID, "myPressure/#", sensor_messages);
+    sched.subscribe(tID, "myDht/sensor/#", sensor_messages);
+    sched.subscribe(tID, "myAirQuality/sensor/#", sensor_messages);
+    sched.subscribe(tID, "myPressure/sensor/#", sensor_messages);
     sched.subscribe(tID, "i2c/doctor", runDoctor);
 }
 
