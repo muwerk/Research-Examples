@@ -18,7 +18,7 @@ ustd::Mqtt mqtt;
 ustd::Ota ota;
 ustd::Led ledg("myLed1",D5,false);
 ustd::Led ledr("myLed2",D6,false);
-ustd::Switch toggleswitch("mySwitch",D7, false);
+ustd::Switch toggleswitch("mySwitch",D7, ustd::Switch::Mode::Default, false);
 ustd::I2CPWM servo("myServo",ustd::I2CPWM::Mode::SERVO);
 
 int flipflop=0;
