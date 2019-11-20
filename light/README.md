@@ -1,9 +1,9 @@
 ## LDR luminosity measurment example 
 
-A simple example demonstrating muwerk's scheduler, munet interface to WLAN, NTP, OTA and MQTT, and a LDR light senors. 
+A simple example demonstrating muwerk's scheduler, munet interface to WLAN, NTP, OTA and MQTT, LDR light sensor and TSL2561 I2C lux sensor. 
 
-<img src="https://github.com/muwerk/mupplets/blob/master/Resources/ldr.png" width="30%" height="30%">
-Hardware: 10kΩ, LDR sensor.
+<img src="https://github.com/muwerk/mupplets/blob/master/Resources/light.png" width="60%" height="30%">
+Hardware: 10kΩ, LDR sensor, TSL2561.
 
 * Please check [application notes](https://github.com/muwerk/mupplets#ldrh)
 
