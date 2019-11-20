@@ -39,9 +39,9 @@ void switch_messages(String topic, String msg, String originator) {
                 flipflop=0;
                 servo.setState(0,false);
             }
-            //sched.publish("myLed/led/set","on");
+            //sched.publish("myLed/light/set","on");
         } else {
-            //sched.publish("myLed/led/set","off");
+            //sched.publish("myLed/light/set","off");
         }
     }
 }
