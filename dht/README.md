@@ -13,14 +13,14 @@ The example publishes temperature and humidity changes to MQTT:
 mosquitto_sub -h <mqtt-server-host> -t omu/# -v
 
 # Output:
-omu/testwemos/myDht/humidity  63.2
-omu/testwemos/myDht/humidity  61.8
-omu/testwemos/myDht/humidity  60.7
-omu/testwemos/myDht/humidity  58.9
-omu/testwemos/myDht/humidity  57.7
+omu/testwemos/myDht/sensor/humidity  63.2
+omu/testwemos/myDht/sensor/humidity  61.8
+omu/testwemos/myDht/sensor/humidity  60.7
+omu/testwemos/myDht/sensor/humidity  58.9
+omu/testwemos/myDht/sensor/humidity  57.7
 omu/testwemos/net/rssi {"rssi":-55}
-omu/testwemos/myDht/humidity  56.5
-omu/testwemos/myDht/humidity  55.4
+omu/testwemos/myDht/sensor/humidity  56.5
+omu/testwemos/myDht/sensor/humidity  55.4
 ```
 
 ## Documentation

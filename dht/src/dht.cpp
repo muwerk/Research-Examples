@@ -20,12 +20,12 @@ void sensor_messages(String topic, String msg, String originator) {
 #ifdef USE_SERIAL_DBG
     Serial.println("Switch received: "+topic+"|"+msg);
 #endif
-    if (topic == "myDht/temperature") {
+    if (topic == "myDht/sensor/temperature") {
 #ifdef USE_SERIAL_DBG
         Serial.println("Temperature: "+msg);
 #endif
     }
-    if (topic == "myDht/humidity") {
+    if (topic == "myDht/sensor/humidity") {
 #ifdef USE_SERIAL_DBG
         Serial.println("Humidity: "+msg);
 #endif
@@ -44,7 +44,7 @@ void setup() {
     int tID = sched.add(appLoop, "main", 1000000);
     dht.begin(&sched);
 
-    sched.subscribe(tID, "myDht/#", sensor_messages);
+    sched.subscribe(tID, "myDht/sensor/#", sensor_messages);
 }
 
 void appLoop() {
