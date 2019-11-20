@@ -30,7 +30,7 @@ mosquitto_pub -h <hostname-of-mqtt-server> -t <hostname-of-board>/mySwitch/switc
 
 Let led signal a pattern (e.g. POST code):
 ```bash
-mosquitto_pub -h <hostname-of-mqtt-server> -t <hostname-of-board>/myLed/led/mode/set -m "pattern +-+-+-+++-+++-+++-+-+-+---r,100"
+mosquitto_pub -h <hostname-of-mqtt-server> -t <hostname-of-board>/myLed/light/mode/set -m "pattern +-+-+-+++-+++-+++-+-+-+---r,100"
 ```
 
 Subscribe to receive messages from the board about state changes:
@@ -38,14 +38,14 @@ Subscribe to receive messages from the board about state changes:
 mosquitto_sub -h <hostname-of-mqtt-server> -v -t omu/#
 
 omu/testwemos/mySwitch/switch/state off
-omu/testwemos/myLed/led/unitluminosity 0.0
-omu/testwemos/myLed/led/state off
+omu/testwemos/myLed/light/unitluminosity 0.0
+omu/testwemos/myLed/light/state off
 omu/testwemos/mySwitch/switch/state on
-omu/testwemos/myLed/led/unitluminosity 1.0
-omu/testwemos/myLed/led/state on
+omu/testwemos/myLed/light/unitluminosity 1.0
+omu/testwemos/myLed/light/state on
 omu/testwemos/mySwitch/switch/state off
-omu/testwemos/myLed/led/unitluminosity 0.0
-omu/testwemos/myLed/led/state off
+omu/testwemos/myLed/light/unitluminosity 0.0
+omu/testwemos/myLed/light/state off
 ```
 
 ## Documentation
