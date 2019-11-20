@@ -11,6 +11,8 @@ munet MQTT interface and simple led and button hardware interaction.
 
 ## Documentation
 
+See [Application notes](https://github.com/muwerk/mupplets/blob/master/README.md) for more documentation.
+
 * [muwerk scheduler and messaging](https://github.com/muwerk/muwerk)
 * [munet networking and mqtt](https://github.com/muwerk/munet)
 * [hardware mupplets and supported MQTT messages](https://github.com/muwerk/mupplets)
