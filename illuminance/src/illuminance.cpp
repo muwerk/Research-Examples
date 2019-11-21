@@ -35,8 +35,10 @@ void setup() {
     ldr.begin(&sched);
     illum.begin(&sched);
 
-    ldr.illuminanceSensor.pollTimeSec=1;
-    illum.illuminanceSensor.pollTimeSec=1;   
+    ldr.registerHomeAssistant("LDR Unit-Illuminance");
+    illum.registerHomeAssistant("TSL2561 Unit-Illuminance");
+    //ldr.illuminanceSensor.pollTimeSec=1;
+    //illum.illuminanceSensor.pollTimeSec=1;   
 }
 
 void appLoop() {
