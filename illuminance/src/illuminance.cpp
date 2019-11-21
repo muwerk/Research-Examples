@@ -30,9 +30,13 @@ void setup() {
     net.begin(&sched);
     mqtt.begin(&sched);
     ota.begin(&sched);
-    int tID = sched.add(appLoop, "main", 1000000);
+    /*int tID = */
+    sched.add(appLoop, "main", 1000000);
     ldr.begin(&sched);
     illum.begin(&sched);
+
+    ldr.illuminanceSensor.pollTimeSec=1;
+    illum.illuminanceSensor.pollTimeSec=1;   
 }
 
 void appLoop() {
