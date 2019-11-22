@@ -14,7 +14,11 @@ ustd::Scheduler sched(10,16,32);
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
+#ifdef __ESP32__
+ustd::Dht dht("myDht",15);
+#else
 ustd::Dht dht("myDht",D4);
+#endif
 
 void sensor_messages(String topic, String msg, String originator) {
 #ifdef USE_SERIAL_DBG
