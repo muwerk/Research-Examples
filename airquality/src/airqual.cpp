@@ -17,7 +17,11 @@ ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 
-ustd::Dht dht("myDht",D3);
+#ifdef __ESP32__
+ustd::Dht dht("myDht",15);
+#else
+ustd::Dht dht("myDht",D4);
+#endif
 ustd::AirQuality airqual("myAirQuality", 0x5a); // I2C address of spark fun CCS811
 ustd::Pressure pressure("myPressure");
 
@@ -90,12 +94,16 @@ void setup() {
     int tID = sched.add(appLoop, "main", 1000000);
     dht.begin(&sched);
 
+    #ifdef __ESP32__
+    Wire.begin();
+    #else
     const int sclPin = D1;
     const int sdaPin = D2;
     pinMode(sdaPin, INPUT_PULLUP); //Set input (SDA) pull-up resistor on
     //Wire.setClock(2000000);
     Wire.begin(sdaPin, sclPin);
     // Wire.setClockStretchLimit(500);
+    #endif
     
     airqual.begin(&sched);
     pressure.begin(&sched);
