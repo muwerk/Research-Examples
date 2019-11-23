@@ -48,6 +48,7 @@ void setup() {
     int tID = sched.add(appLoop, "main", 1000000);
     dht.begin(&sched);
 
+    dht.registerHomeAssistant("Labor");
     sched.subscribe(tID, "myDht/sensor/#", sensor_messages);
 }
 
