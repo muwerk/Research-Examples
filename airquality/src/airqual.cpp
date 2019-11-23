@@ -108,6 +108,10 @@ void setup() {
     airqual.begin(&sched);
     pressure.begin(&sched);
 
+    dht.registerHomeAssistant("Labor");
+    airqual.registerHomeAssistant("Labor");
+    pressure.registerHomeAssistant("Labor");
+
     sched.subscribe(tID, "myDht/sensor/#", sensor_messages);
     sched.subscribe(tID, "myAirQuality/sensor/#", sensor_messages);
     sched.subscribe(tID, "myPressure/sensor/#", sensor_messages);
