@@ -60,8 +60,8 @@ void setup() {
     toggleswitch.setMode(ustd::Switch::Mode::Flipflop);
 
     // Use Home Assistant's auto-discovery to register switch and led in HA with names DigiTast, Blaue Led.
-    toggleswitch.registerHomeAssistant("DigiTast");
-    led.registerHomeAssistant("Blaue Led");
+    toggleswitch.registerHomeAssistant("DigiTast", "Custom Hardware");
+    led.registerHomeAssistant("Blaue Led", "Custom Hardware");
 
     // led.setMode(led.Mode::Blink,1000);
     sched.subscribe(tID, "mySwitch/switch/state", switch_messages);

@@ -35,8 +35,8 @@ void setup() {
     ldr.begin(&sched);
     illum.begin(&sched);
 
-    ldr.registerHomeAssistant("Labor LDR");
-    illum.registerHomeAssistant("Labor TSL2561");
+    ldr.registerHomeAssistant("Labor LDR", "Enlightenment");
+    illum.registerHomeAssistant("Labor TSL2561", "Enlightenment");
     //ldr.illuminanceSensor.pollTimeSec=1;
     //illum.illuminanceSensor.pollTimeSec=1;   
 }
