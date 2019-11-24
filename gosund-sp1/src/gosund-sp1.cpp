@@ -18,8 +18,8 @@ ustd::Mqtt mqtt;
 ustd::Ota ota;
 
 ustd::Led led1("Led1",1,false);
-ustd::Led led2("Led2",1,false);
-ustd::Switch toggleswitch("mySwitch",14, ustd::Switch::Mode::Default, false);
+ustd::Led led2("Led2",12,false);
+ustd::Switch toggleswitch("mySwitch",3, ustd::Switch::Mode::Default, false);
 // Optional IRQ support: (each switch needs unique interruptIndex [0..9])
 // ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Flipflop, false, "mySwitch/switch/IRQ/0", 0, 25);
 
