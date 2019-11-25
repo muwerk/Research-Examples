@@ -43,7 +43,6 @@ void setup() {
     toggleswitch.begin(&sched);
     toggleswitch.setMode(ustd::Switch::Mode::Flipflop);
     relay.begin(&sched);
-    energy.begin(&sched);
 
     String friendlyName;
     if (!ustd::readFriendlyName(friendlyName)) friendlyName="Gosund SP1";
