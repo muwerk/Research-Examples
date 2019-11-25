@@ -44,10 +44,12 @@ void setup() {
     toggleswitch.setMode(ustd::Switch::Mode::Flipflop);
     relay.begin(&sched);
 
-    toggleswitch.registerHomeAssistant("GS Switch", "Gosund-SP1");
-    led1.registerHomeAssistant("GS Led1", "Gosund-SP1");
-    led2.registerHomeAssistant("GS Led2", "Gosund-SP1");
-    relay.registerHomeAssistant("GS Relay", "Gosund-SP1");
+    String friendlyName;
+    if (!ustd::readFriendlyName(friendlyName)) friendlyName="Gosund SP1";
+    toggleswitch.registerHomeAssistant(friendlyName+" switch", friendlyName);
+    led1.registerHomeAssistant(friendlyName+" blue led", friendlyName);
+    led2.registerHomeAssistant(friendlyName+" red led", friendlyName);
+    relay.registerHomeAssistant(friendlyName+" relay", friendlyName);
 
     sched.subscribe(tID, "mySwitch/switch/state", switch_messages);
 }
