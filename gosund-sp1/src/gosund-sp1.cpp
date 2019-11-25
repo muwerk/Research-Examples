@@ -9,6 +9,7 @@
 
 #include "led.h"
 #include "switch.h"
+#include "digital_out.h"
 
 void appLoop();
 
@@ -22,6 +23,7 @@ ustd::Led led2("Led2",12,false);
 ustd::Switch toggleswitch("mySwitch",3, ustd::Switch::Mode::Default, false);
 // Optional IRQ support: (each switch needs unique interruptIndex [0..9])
 // ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Flipflop, false, "mySwitch/switch/IRQ/0", 0, 25);
+ustd::DigitalOut relay("Relay",14,false);
 
 void switch_messages(String topic, String msg, String originator) {
 #ifdef USE_SERIAL_DBG
@@ -53,11 +55,13 @@ void setup() {
     led2.begin(&sched);
     toggleswitch.begin(&sched);
     toggleswitch.setMode(ustd::Switch::Mode::Flipflop);
+    relay.begin(&sched);
 
     // Use Home Assistant's auto-discovery to register switch and led in HA with names DigiTast, Blaue Led.
     toggleswitch.registerHomeAssistant("Gosund 01 Switch", "Gosund-SP1 01");
     led1.registerHomeAssistant("Gosund 01 Led1", "Gosund-SP1 01");
     led2.registerHomeAssistant("Gosund 01 Led2", "Gosund-SP1 01");
+    relay.registerHomeAssistant("Gosund 01 Relay", "Gosund-SP1 01");
 
     // led.setMode(led.Mode::Blink,1000);
     sched.subscribe(tID, "mySwitch/switch/state", switch_messages);
