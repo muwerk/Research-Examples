@@ -1,8 +1,5 @@
 ## Gosund SP1 Switch
 
-## License
-
-This example is GPL v3 licensed due to inclusion of the HLW8012 project.
 
 ## Documentation
 
