@@ -45,16 +45,12 @@ void setup() {
     toggleswitch.begin(&sched);
     relay.begin(&sched);
     power.begin(&sched);
-    power.setUserCalibrationFactors(1.0,1.0,1.0); // factors for power (W), voltage (V) and current (A)
+    power.setUserCalibrationFactors(1.0,1.0,1.0); // calib. factors for power (W), voltage (V) and current (A)
 
     String friendlyName;
     if (!ustd::readFriendlyName(friendlyName)) friendlyName="Gosund SP1";
     toggleswitch.registerHomeAssistant(friendlyName+" switch", friendlyName);
     power.registerHomeAssistant(friendlyName+" power", friendlyName);
-
-    //led1.registerHomeAssistant(friendlyName+" blue led", friendlyName);
-    //led2.registerHomeAssistant(friendlyName+" red led", friendlyName);
-    //relay.registerHomeAssistant(friendlyName+" relay", friendlyName);
 
     sched.subscribe(tID, "mySwitch/switch/state", switch_messages);
 }
