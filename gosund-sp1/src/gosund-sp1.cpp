@@ -49,6 +49,7 @@ void setup() {
     String friendlyName;
     if (!ustd::readFriendlyName(friendlyName)) friendlyName="Gosund SP1";
     toggleswitch.registerHomeAssistant(friendlyName+" switch", friendlyName);
+    power.registerHomeAssistant(friendlyName+" power", friendlyName);
     
     //led1.registerHomeAssistant(friendlyName+" blue led", friendlyName);
     //led2.registerHomeAssistant(friendlyName+" red led", friendlyName);
