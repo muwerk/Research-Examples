@@ -8,6 +8,7 @@
 #include "led.h"
 #include "switch.h"
 #include "digital_out.h"
+#include "power_bl0397.h"
 
 void appLoop();
 
@@ -18,8 +19,9 @@ ustd::Ota ota;
 
 ustd::Led led1("Led1",1,false); // blue
 ustd::Led led2("Led2",13,false); // red
-ustd::Switch toggleswitch("mySwitch",3, ustd::Switch::Mode::Default, false);
+ustd::Switch toggleswitch("mySwitch",3, ustd::Switch::Mode::Flipflop, false);
 ustd::DigitalOut relay("Relay",14,true);
+ustd::PowerBl0937 power("Power",4,5,12,0,1);
 
 void switch_messages(String topic, String msg, String originator) {
     if (topic == "mySwitch/switch/state") {
@@ -41,12 +43,13 @@ void setup() {
     led1.begin(&sched);
     led2.begin(&sched);
     toggleswitch.begin(&sched);
-    toggleswitch.setMode(ustd::Switch::Mode::Flipflop);
     relay.begin(&sched);
+    power.begin(&sched);
 
     String friendlyName;
     if (!ustd::readFriendlyName(friendlyName)) friendlyName="Gosund SP1";
     toggleswitch.registerHomeAssistant(friendlyName+" switch", friendlyName);
+    
     //led1.registerHomeAssistant(friendlyName+" blue led", friendlyName);
     //led2.registerHomeAssistant(friendlyName+" red led", friendlyName);
     //relay.registerHomeAssistant(friendlyName+" relay", friendlyName);
