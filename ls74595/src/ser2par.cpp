@@ -19,12 +19,12 @@ ustd::ShiftReg sr("Shift",D5,D6,D7);
 
 
 void setup() {
+
     net.begin(&sched);
     mqtt.begin(&sched);
     ota.begin(&sched);
-    int tID = sched.add(appLoop, "main", 200000);
-
     sr.begin(&sched);
+    int tID = sched.add(appLoop, "main", 200000);
 }
 
 uint8_t b=1;
