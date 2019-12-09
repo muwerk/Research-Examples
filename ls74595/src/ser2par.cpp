@@ -29,8 +29,15 @@ void setup() {
     /*int tID = */sched.add(appLoop, "main", 1000000);
 }
 
+bool sw=false;
 void appLoop() {
-    sr.pulseBit(1,200);
+    if (sw) {
+        sw=false;
+        sr.pulseBit(1,200);
+    } else {
+        sr.pulseBit(2,200);
+        sw=true;
+    }
 }
 
 // Never add code to this loop, use appLoop() instead.
