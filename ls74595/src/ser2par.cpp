@@ -26,16 +26,11 @@ void setup() {
     ota.begin(&sched);
     sr.begin(&sched);
     Serial.println("End init");
-    /*int tID = */sched.add(appLoop, "main", 200000);
+    /*int tID = */sched.add(appLoop, "main", 1000000);
 }
 
-uint8_t b=1;
 void appLoop() {
-    sr.writeShiftReg(b);
-    if (b<255) ++b;
-    else b=0;
-//    if (b<128) b=b+b;
-//    else b=1;
+    sr.pulseBit(1,200);
 }
 
 // Never add code to this loop, use appLoop() instead.
