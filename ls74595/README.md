@@ -2,10 +2,18 @@
 
 This demonstrates the shift_reg_74595 mupplet which controls a 74HC595 shift register using either SPI or bit-banging (with `shiftOut`).
 
+### Sample setup
+
 <img src="https://github.com/muwerk/mupplets/blob/master/Resources/74hc595.png" width="60%" height="30%">
 Hardware: 74HC595 shift register and (optional) 7-line darlington ULN2003.
 
 7 bits of the 8 bit of 74HC595 are connected to the seven inputs of ULN2003, which can switch higher voltages and higher currents than the 74HC595. Use the ULN2803, if 8 outputs are required.
+
+The example-code pulses the outputs 1 and 2 of the ULN2003 for 200ms every 1 second in turns, using `shift_reg_74595.pulseBit(1,200)` and `shift_reg_74595.pulseBit(2,200)`. (Bit 0 of 74HC595 is not connected, since ULN2003 has only 7 I/Os).
+
+### Logic tester and PulseView timing diagrams
+
+This shows the output after calling `shift_reg_74595.set(0x44)`:
 
 <img src="https://github.com/muwerk/mupplets/blob/master/Resources/74595-spi-pulseview.png" width="60%" height="60%">
 Pulse view timing demonstrating SPI/bit bang input (first three lines) and 3 of 8 outputs (Q1-Q3 out of Q0..Q7).
