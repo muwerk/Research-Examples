@@ -15,23 +15,27 @@ ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 
-ustd::ShiftReg sr("Shift",D5,D6,D7);
+ustd::ShiftReg sr("Shift",D7,D5,D8,true);
 
 
 void setup() {
-
+    Serial.begin(115200);
+    Serial.println("Start");
     net.begin(&sched);
     mqtt.begin(&sched);
     ota.begin(&sched);
     sr.begin(&sched);
-    int tID = sched.add(appLoop, "main", 200000);
+    Serial.println("End init");
+    /*int tID = */sched.add(appLoop, "main", 200000);
 }
 
 uint8_t b=1;
 void appLoop() {
     sr.writeShiftReg(b);
-    if (b<128) b=b+b;
-    else b=1;
+    if (b<255) ++b;
+    else b=0;
+//    if (b<128) b=b+b;
+//    else b=1;
 }
 
 // Never add code to this loop, use appLoop() instead.
