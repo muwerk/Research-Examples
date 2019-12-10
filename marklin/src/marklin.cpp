@@ -33,7 +33,7 @@ void setup() {
     ota.begin(&sched);
     dcc.begin(&sched);
 
-    /* int tID = */sched.add(appLoop, "main", 1000000); // every 1000000 micro sec = once a second call appLoop
+    /* int tID = */sched.add(appLoop, "main", 1000000); 
 }
 
 void appLoop() {
