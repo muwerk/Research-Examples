@@ -19,7 +19,8 @@ ustd::Ota ota;
 #ifdef __ESP32__
 ustd::Dcc dcc("Märklin",26,25,21);
 #else
-ustd::Dcc dcc("Märklin",D6,D7,D8);
+#error Not implemented.
+//ustd::Dcc dcc("Märklin",D6,D7,D8);
 #endif
 
 void setup() {
