@@ -17,7 +17,8 @@ ustd::Mqtt mqtt;
 ustd::Ota ota;
 
 #ifdef __ESP32__
-ustd::Dcc dcc("Märklin",26,25,21);
+//ustd::Dcc dcc("Märklin",ustd::Dcc::Mode::DCC, 21, 0, 26,25);
+ustd::Dcc dcc("Märklin",ustd::Dcc::Mode::DC, 21, 0);
 #else
 #error Not implemented.
 //ustd::Dcc dcc("Märklin",D6,D7,D8);
@@ -33,6 +34,7 @@ void setup() {
     ota.begin(&sched);
     dcc.begin(&sched);
 
+    dcc.setTrainSpeed(60);
     /* int tID = */sched.add(appLoop, "main", 1000000); 
 }
 
