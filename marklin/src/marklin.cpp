@@ -34,7 +34,7 @@ void setup() {
     ota.begin(&sched);
     dcc.begin(&sched);
 
-    dcc.setTrainSpeed(60);
+    dcc.setTrainSpeed(20);
     /* int tID = */sched.add(appLoop, "main", 1000000); 
 }
 
