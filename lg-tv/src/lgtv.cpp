@@ -18,9 +18,9 @@ ustd::Ota ota;
 ustd::TvSerial tv("LG-TV", &Serial1, ustd::TvSerial::TV_SERIAL_TYPE::LG_TV);
 #else // !__ESP32__
 #ifdef USE_SERIAL_DBG
-#error You cannot use define USE_SERIAL_DBG with MP3 mupplet, since the serial port is needed for the communication with the MP3 hardware!
+#error You cannot use define USE_SERIAL_DBG with TvSerial mupplet, since the serial port is needed for the communication with the MP3 hardware!
 #endif // USE_SERIAL_DBG
-ustd::TvSerial tv("LG-TV", &Serial, ustd::TvSerial::TV_SERIAL_TYPE::LG_TV);
+ustd::TvSerial tv("TV", (HardwareSerial *)&Serial, ustd::TvSerial::TV_SERIAL_TYPE::LG_TV);
 #endif // !__ESP32__
 
 void setup() {
@@ -32,7 +32,7 @@ void setup() {
     tv.begin(&sched);
 
     // Use Home Assistant's auto-discovery to register tv in HA as switch.
-    tv.registerHomeAssistant("LG TV", "Fernseher");
+    tv.registerHomeAssistant("Fernseher", "ESP Serial TV");
 }
 
 void appLoop() {
