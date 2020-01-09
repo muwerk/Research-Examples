@@ -49,7 +49,7 @@ void setup() {
 
     String friendlyName;
     if (!ustd::readFriendlyName(friendlyName)) friendlyName="Gosund SP1";
-    toggleswitch.registerHomeAssistant(friendlyName+" switch", friendlyName);
+    toggleswitch.registerHomeAssistant(friendlyName, friendlyName);
     power.registerHomeAssistant(friendlyName+" power", friendlyName);
 
     sched.subscribe(tID, "mySwitch/switch/state", switch_messages);
