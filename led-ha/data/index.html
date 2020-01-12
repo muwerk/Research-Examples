@@ -19,7 +19,19 @@
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
-            font-size: 24px
+            font-size: 16px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=password],
+        select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            font-size: 16px;
             display: inline-block;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -70,7 +82,7 @@
             <input type="text" id="t1" name="ssid" placeholder="network SSID">
             <br>
             Hostname:<br>
-            <input type="text" id="t2" name="hostname" placeholder="hostname">
+            <input type="password" id="t2" name="hostname" placeholder="hostname">
             <br><br>
             <input type="submit" value="Submit">
         </form>

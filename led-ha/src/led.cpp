@@ -11,6 +11,7 @@
 
 #include "led.h"
 #include "switch.h"
+#include "mup_util.h"
 
 void appLoop();
 
@@ -70,6 +71,13 @@ void setup() {
 
     // led.setMode(led.Mode::Blink,1000);
     sched.subscribe(tID, "mySwitch/switch/state", switch_messages);
+
+    sched.publish("Starting","Write");
+    // String tmp;
+    // if (ustd::readJson("/net.json",tmp)) {
+    //     JSONVar jsonObj = JSON.parse(tmp);
+    //     ustd::writeJson("/test.json",jsonObj);
+    //  }
 }
 
 void appLoop() {
