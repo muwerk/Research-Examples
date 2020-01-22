@@ -35,7 +35,7 @@ ustd::Pressure pressure("bmp085");
 ustd::Switch sw1("sensorclock1", D7);
 ustd::Switch sw2("sensorclock2", D6,ustd::Switch::Mode::Default,false,
                  "clock/alarm/off");
-ustd::AirQuality airq("air",0x5a);
+ustd::AirQuality airq("air",0x5a,"dht22/sensor");
 
 
 
