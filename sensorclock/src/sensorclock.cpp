@@ -3,7 +3,7 @@
 #include "platform.h"
 #include "scheduler.h"
 
-#include "net.h"
+#include "../../../munet/net.h"
 #include "mqtt.h"
 #include "ota.h"
 #include "../../../munet/web.h"
