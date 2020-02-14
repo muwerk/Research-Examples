@@ -1,7 +1,7 @@
 #include "platform.h"
 #include "scheduler.h"
 
-#include "net.h"
+#include "../../../munet/net.h"
 #include "../../../munet/mqtt.h"
 #include "ota.h"
 
@@ -36,7 +36,7 @@ void switch_messages(String topic, String msg, String originator) {
 }
 
 void setup() {
-    net.begin(&sched);
+    net.begin(&sched, false);  // false: Never reboot on net failure
     mqtt.begin(&sched);
     ota.begin(&sched);
     int tID = sched.add(appLoop, "main", 1000000);
