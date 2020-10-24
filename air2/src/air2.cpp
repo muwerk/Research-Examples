@@ -71,7 +71,7 @@ void setup() {
     airqual.begin(&sched);
     airqual.registerHomeAssistant("Labor2", "Breadboard2");
 
-    sched.subscribe(tID, "i2c/doctor", runDoctor);
+    sched.subscribe(tID, "i2c/doctor", runDoctor); // publish to <hostname>/i2c/doctor  to get enumerations of i2c devices to MQTT omu/<hostname>/i2c/doctor/#
 }
 
 void appLoop() {
