@@ -15,7 +15,7 @@ ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 
-ustd::AirQualityBme680 airqual("AirQuality", 0x5a); // I2C address of BME680
+ustd::AirQualityBme680 airqual("AirQuality"); 
 
 uint8_t hwErrs=0;
 uint8_t i2cDevs=0;
