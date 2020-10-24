@@ -3,7 +3,7 @@
 #include "platform.h"
 #include "scheduler.h"
 #include "../../../munet/net.h"
-#include "mqtt.h"
+#include "../../../munet/mqtt.h"
 #include "ota.h"
 
 #include "airq_bme680.h"
@@ -16,19 +16,6 @@ ustd::Mqtt mqtt;
 ustd::Ota ota;
 
 ustd::AirQualityBme680 airqual("AirQuality", 0x5a); // I2C address of BME680
-
-void sensor_messages(String topic, String msg, String originator) {
-    if (topic == "AirQuality/sensor/co2") {
-#ifdef USE_SERIAL_DBG
-        Serial.println("CO2: "+msg);
-#endif
-    }
-    if (topic == "AirQuality/sensor/voc") {
-#ifdef USE_SERIAL_DBG
-        Serial.println("VOC: "+msg);
-#endif
-    }
-}
 
 uint8_t hwErrs=0;
 uint8_t i2cDevs=0;
@@ -84,7 +71,6 @@ void setup() {
     airqual.begin(&sched);
     airqual.registerHomeAssistant("Labor2", "Breadboard2");
 
-    sched.subscribe(tID, "AirQuality/sensor/#", sensor_messages);
     sched.subscribe(tID, "i2c/doctor", runDoctor);
 }
 
