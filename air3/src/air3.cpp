@@ -1,5 +1,5 @@
 #define USE_SERIAL_DBG 1
-
+// xx
 #include "platform.h"
 #include "scheduler.h"
 #include "../../../munet/net.h"
@@ -15,7 +15,7 @@ ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 
-ustd::AirQualityBsecBme680 airqual("AirQuality"); 
+ustd::AirQualityBsecBme680 airqual("AirQuality",BME680_I2C_ADDR_SECONDARY); 
 
 uint8_t hwErrs=0;
 uint8_t i2cDevs=0;
@@ -49,6 +49,10 @@ void runDoctor(String topic, String msg, String originator) {
     i2c_doctor();
 }
 
+#if !defined(__ESP32__)
+TwoWire wr;
+#endif
+
 void setup() {
 #ifdef USE_SERIAL_DBG
     Serial.begin(115200);
@@ -65,11 +69,11 @@ void setup() {
     //const int sclPin = D1;
     //const int sdaPin = D2;
     //pinMode(sdaPin, INPUT_PULLUP); //Set input (SDA) pull-up resistor on
-    Wire.begin(); //sdaPin, sclPin);
+    wr.begin(); //sdaPin, sclPin);
     #endif
     
     airqual.begin(&sched, Wire);
-    airqual.registerHomeAssistant("Labor3", "Breadboard3");
+    //airqual.registerHomeAssistant("Labor3", "Breadboard3");
 
     sched.subscribe(tID, "i2c/doctor", runDoctor); // publish to <hostname>/i2c/doctor  to get enumerations of i2c devices to MQTT omu/<hostname>/i2c/doctor/#
 }
