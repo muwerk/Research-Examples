@@ -6,7 +6,7 @@
 #include "../../../munet/mqtt.h"
 #include "ota.h"
 
-#include "airq_bsecbme680.h"
+#include "airq_bsec_bme680.h"
 
 void appLoop();
 
@@ -68,7 +68,7 @@ void setup() {
     Wire.begin(); //sdaPin, sclPin);
     #endif
     
-    airqual.begin(&sched);
+    airqual.begin(&sched, Wire);
     airqual.registerHomeAssistant("Labor3", "Breadboard3");
 
     sched.subscribe(tID, "i2c/doctor", runDoctor); // publish to <hostname>/i2c/doctor  to get enumerations of i2c devices to MQTT omu/<hostname>/i2c/doctor/#
