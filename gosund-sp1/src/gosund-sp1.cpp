@@ -39,7 +39,7 @@ void setup() {
     net.begin(&sched, false);  // false: Never reboot on net failure
     mqtt.begin(&sched);
     ota.begin(&sched);
-    /*int tID = */ sched.add(appLoop, "main", 1000000);
+    int tID = sched.add(appLoop, "main", 1000000);
     led1.begin(&sched);
     led2.begin(&sched);
     toggleswitch.begin(&sched);
