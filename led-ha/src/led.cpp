@@ -6,7 +6,7 @@
 #include "net.h"
 #include "mqtt.h"
 #include "ota.h"
-#include "../../../munet/web.h"
+//#include "../../../munet/web.h"
 
 #include "led.h"
 #include "switch.h"
@@ -18,7 +18,7 @@ ustd::Scheduler sched(10, 16, 32);
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
-ustd::Web web;
+//ustd::Web web;
 
 #ifdef __ESP32__
 ustd::Led led("myLed", 14, false);
@@ -59,7 +59,7 @@ void setup() {
     net.begin(&sched);
     mqtt.begin(&sched);
     ota.begin(&sched);
-    web.begin(&sched);
+    //web.begin(&sched);
 
     int tID = sched.add(
         appLoop, "main",
