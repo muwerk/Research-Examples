@@ -3,10 +3,10 @@
 #include "platform.h"
 #include "scheduler.h"
 
-#include "../../../munet/net.h"
+#include "net.h"
 #include "mqtt.h"
 #include "ota.h"
-#include "../../../munet/web.h"
+//#include "../../../munet/web.h"
 
 //#include "led.h"
 #include "switch.h"
@@ -25,7 +25,7 @@ ustd::Scheduler sched(10, 16, 32);
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
-ustd::Web web;
+//ustd::Web web;
 
 ustd::Clock7Seg clock7("clock", 0x70, D5, true,
                        "tsl2561/sensor/unitilluminance");
@@ -45,7 +45,7 @@ void setup() {
     net.begin(&sched);
     mqtt.begin(&sched);
     ota.begin(&sched);
-    web.begin(&sched);
+//    web.begin(&sched);
 
 #if defined(I2C_D1_D2)
 #ifdef USE_SERIAL_DBG
