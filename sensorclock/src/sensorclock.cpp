@@ -25,7 +25,7 @@ ustd::Scheduler sched(10, 16, 32);
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
-//ustd::Web web;
+ustd::Web web;
 
 ustd::Illuminance illumin("tsl2561", 0x39, "1x", "medium", 28.0);
 ustd::Dht dht("dht22", 0, DHT22);  // port 0 == D3
@@ -50,7 +50,7 @@ void setup() {
     net.begin(&sched);
     mqtt.begin(&sched);
     ota.begin(&sched);
-//    web.begin(&sched);
+    web.begin(&sched);
 
 #if defined(I2C_D1_D2)
 #ifdef USE_SERIAL_DBG
