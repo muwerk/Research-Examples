@@ -27,14 +27,19 @@ ustd::Mqtt mqtt;
 ustd::Ota ota;
 //ustd::Web web;
 
-ustd::Clock7Seg clock7("clock", 0x70, D5, true,
-                       "tsl2561/sensor/unitilluminance");
 ustd::Illuminance illumin("tsl2561", 0x39, "1x", "medium", 28.0);
 ustd::Dht dht("dht22", 0, DHT22);  // port 0 == D3
 ustd::Pressure pressure("bmp085");
+#ifdef I2C_D1_D2
+ustd::Clock7Seg clock7("clock", 0x70, D5, true,
+                       "tsl2561/sensor/unitilluminance");
 ustd::Switch sw1("sensorclock1", D7);
 ustd::Switch sw2("sensorclock2", D6, ustd::Switch::Mode::Default, false,
                  "clock/alarm/off");
+#else
+ustd::Clock7Seg clock7("clock", 0x70, 14, true,
+                       "tsl2561/sensor/unitilluminance");
+#endif
 ustd::AirQuality airq("air", 0x5a, "dht22/sensor");
 
 void setup() {
@@ -62,8 +67,10 @@ void setup() {
     illumin.begin(&sched);
     dht.begin(&sched);
     pressure.begin(&sched);
+#ifdef I2C_D1_D2
     sw1.begin(&sched);
     sw2.begin(&sched);
+#endif
     airq.begin(&sched);
 
     // Use Home Assistant's auto-discovery to register sensors:
