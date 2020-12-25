@@ -33,10 +33,11 @@ void setup() {
     ota.begin(&sched);
     web.begin(&sched);
 
-    int tID = sched.add(appLoop, "main",
-                        1000000);  // every 1000000 micro sec = once a second call appLoop
+    /* int tID = */
+    sched.add(appLoop, "main", 1000000);  // every 1000000 micro sec = once a second call appLoop
 
     ldr.begin(&sched);
+    candles.wind = 40;
     candles.begin(&sched);
 
     // Use Home Assistant's auto-discovery to register the butterlamp
