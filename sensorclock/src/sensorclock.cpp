@@ -31,14 +31,11 @@ ustd::Illuminance illumin("tsl2561", 0x39, "1x", "medium", 28.0);
 ustd::Dht dht("dht22", 0, DHT22);  // port 0 == D3
 ustd::Pressure pressure("bmp085");
 #ifdef I2C_D1_D2
-ustd::Clock7Seg clock7("clock", 0x70, D5, true,
-                       "tsl2561/sensor/unitilluminance");
+ustd::Clock7Seg clock7("clock", 0x70, D5, true, "tsl2561/sensor/unitilluminance");
 ustd::Switch sw1("sensorclock1", D7);
-ustd::Switch sw2("sensorclock2", D6, ustd::Switch::Mode::Default, false,
-                 "clock/alarm/off");
+ustd::Switch sw2("sensorclock2", D6, ustd::Switch::Mode::Default, false, "clock/alarm/off");
 #else
-ustd::Clock7Seg clock7("clock", 0x70, 14, true,
-                       "tsl2561/sensor/unitilluminance");
+ustd::Clock7Seg clock7("clock", 0x70, 14, true, "tsl2561/sensor/unitilluminance");
 #endif
 ustd::AirQuality airq("air", 0x5a, "dht22/sensor");
 
@@ -59,9 +56,8 @@ void setup() {
     Wire.begin(D1, D2);  // SDA, SCL; Non-standard, from the old days...
 #endif
 
-    /*int tID =*/sched.add(
-        appLoop, "main",
-        1000000);  // every 1000000 micro sec = once a second call appLoop
+    /*int tID =*/sched.add(appLoop, "main",
+                           1000000);  // every 1000000 micro sec = once a second call appLoop
     clock7.begin(&sched);
     clock7.maxAlarmDuration = 10;
     illumin.begin(&sched);
