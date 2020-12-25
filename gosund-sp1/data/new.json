@@ -1,0 +1,30 @@
+{
+    "hostname": "myhost",
+    "friendlyname": "My favorite device",
+    "uuid": "auto-generated-if-empty",
+    "services": {
+        "wlan": {
+            "active": true,
+            "ssid": "my-wlan-ssid",
+            "password": "wlan-password",
+            "mode": "client"
+        },
+        "ntp": {
+            "active": true,
+            "server": "time.nist.gov",
+            "dstrules": "CET-1CEST,M3.5.0,M10.5.0/3"
+        },
+        "mqtt": {
+            "active": true,
+            "server": "my.mqtt.server",
+            "username": "",
+            "password": ""
+        },
+        "web" : {
+            "active": true,
+            "default": "web/index.html",
+            "username": "username for web admin access",
+            "password": "password for web admin access"
+        }
+    }
+}
