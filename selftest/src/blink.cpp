@@ -134,8 +134,7 @@ unsigned int testcase(T_TESTCASE tc) {
     if (sched.mqttmatch(tc.pub, tc.sub) != tc.groundTruth) {
         if (tc.groundTruth)
             gt = "true";
-        String msg =
-            tc.pub + "<->" + tc.sub + ", groundTruth=" + gt + ": ERROR.";
+        String msg = tc.pub + "<->" + tc.sub + ", groundTruth=" + gt + ": ERROR.";
 #ifdef USE_SERIAL_DBG
         Serial.println(msg.c_str());
 #endif

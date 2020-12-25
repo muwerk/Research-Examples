@@ -10,13 +10,12 @@
 
 void appLoop();
 
-ustd::Scheduler sched(10,16,32);
+ustd::Scheduler sched(10, 16, 32);
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 
-ustd::ShiftReg sr("Shift",D7,D5,D8,true);
-
+ustd::ShiftReg sr("Shift", D7, D5, D8, true);
 
 void setup() {
     Serial.begin(115200);
@@ -26,17 +25,17 @@ void setup() {
     ota.begin(&sched);
     sr.begin(&sched);
     Serial.println("End init");
-    /*int tID = */sched.add(appLoop, "main", 1000000);
+    /*int tID = */ sched.add(appLoop, "main", 1000000);
 }
 
-bool sw=false;
+bool sw = false;
 void appLoop() {
     if (sw) {
-        sw=false;
-        sr.pulseBit(1,200);
+        sw = false;
+        sr.pulseBit(1, 200);
     } else {
-        sr.pulseBit(2,200);
-        sw=true;
+        sr.pulseBit(2, 200);
+        sw = true;
     }
 }
 

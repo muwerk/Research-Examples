@@ -10,7 +10,7 @@
 
 void appLoop();
 
-ustd::Scheduler sched(10,16,32);
+ustd::Scheduler sched(10, 16, 32);
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;

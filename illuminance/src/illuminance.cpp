@@ -11,16 +11,16 @@
 
 void appLoop();
 
-ustd::Scheduler sched(10,16,32);
+ustd::Scheduler sched(10, 16, 32);
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 #ifdef __ESP32__
-ustd::Ldr ldr("myLdr",A9); // caution:  All pins connected to ADC #2 conflict with wifi!
+ustd::Ldr ldr("myLdr", A9);  // caution:  All pins connected to ADC #2 conflict with wifi!
 #else
-ustd::Ldr ldr("myLdr",A0);
+ustd::Ldr ldr("myLdr", A0);
 #endif
-ustd::Illuminance illum("myLum",0x39); 
+ustd::Illuminance illum("myLum", 0x39);
 
 void setup() {
 #ifdef USE_SERIAL_DBG
@@ -37,8 +37,8 @@ void setup() {
 
     ldr.registerHomeAssistant("Labor LDR", "Enlightenment");
     illum.registerHomeAssistant("Labor TSL2561", "Enlightenment");
-    //ldr.illuminanceSensor.pollTimeSec=1;
-    //illum.illuminanceSensor.pollTimeSec=1;   
+    // ldr.illuminanceSensor.pollTimeSec=1;
+    // illum.illuminanceSensor.pollTimeSec=1;
 }
 
 void appLoop() {

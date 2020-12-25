@@ -11,44 +11,45 @@
 
 void appLoop();
 
-ustd::Scheduler sched(10,16,32);
+ustd::Scheduler sched(10, 16, 32);
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 
 #ifdef __ESP32__
-ustd::Led led("myLed",14,false);
-//ustd::Switch toggleswitch("mySwitch",32, ustd::Switch::Mode::Default, false);
+ustd::Led led("myLed", 14, false);
+// ustd::Switch toggleswitch("mySwitch",32, ustd::Switch::Mode::Default, false);
 // Optional IRQ support: (each switch needs unique interruptIndex [0..9])
-ustd::Switch toggleswitch("mySwitch",32, ustd::Switch::Mode::Flipflop, false, "mySwitch/switch/IRQ/0", 0, 25);
+ustd::Switch toggleswitch("mySwitch", 32, ustd::Switch::Mode::Flipflop, false,
+                          "mySwitch/switch/IRQ/0", 0, 25);
 #else
-ustd::Led led("myLed",D5,false);
-ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Default, false);
+ustd::Led led("myLed", D5, false);
+ustd::Switch toggleswitch("mySwitch", D6, ustd::Switch::Mode::Default, false);
 // Optional IRQ support: (each switch needs unique interruptIndex [0..9])
-// ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Flipflop, false, "mySwitch/switch/IRQ/0", 0, 25);
+// ustd::Switch toggleswitch("mySwitch",D6, ustd::Switch::Mode::Flipflop, false,
+// "mySwitch/switch/IRQ/0", 0, 25);
 #endif
 
 void switch_messages(String topic, String msg, String originator) {
 #ifdef USE_SERIAL_DBG
-    Serial.println("Switch received: "+topic+"|"+msg);
+    Serial.println("Switch received: " + topic + "|" + msg);
 #endif
     if (topic == "mySwitch/switch/state") {
-        if (msg=="on") {
+        if (msg == "on") {
             led.set(true);
-            //sched.publish("myLed/light/set","on");
-        } else if (msg=="off") {
+            // sched.publish("myLed/light/set","on");
+        } else if (msg == "off") {
             led.set(false);
-            //sched.publish("myLed/light/set","off");
-        } else if (msg=="trigger") {
+            // sched.publish("myLed/light/set","off");
+        } else if (msg == "trigger") {
             led.setMode(ustd::Led::Mode::Pulse, 50);
         }
     }
 }
 
 void test_messages(String topic, String msg, String originator) {
-    sched.publish("!test/pub","a test");
+    sched.publish("!test/pub", "a test");
 }
-
 
 void setup() {
 #ifdef USE_SERIAL_DBG
@@ -64,7 +65,7 @@ void setup() {
 
     // led.setMode(led.Mode::Wave,1000);
     sched.subscribe(tID, "mySwitch/switch/state", switch_messages);
-    mqtt.addSubscription(tID,"test/sub",test_messages);
+    mqtt.addSubscription(tID, "test/sub", test_messages);
 }
 
 void appLoop() {

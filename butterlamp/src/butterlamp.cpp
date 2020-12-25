@@ -14,15 +14,14 @@
 
 void appLoop();
 
-ustd::Scheduler sched(10,16,32);
+ustd::Scheduler sched(10, 16, 32);
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 ustd::Web web;
 
 ustd::Ldr ldr("ldr", A0);
-ustd::NeoCandle candles("candles", NEOCANDLE_PIN, NEOCANDLE_NUMPIXELS,
-                        NEOCANDLEX_OPTIONS);
+ustd::NeoCandle candles("candles", NEOCANDLE_PIN, NEOCANDLE_NUMPIXELS, NEOCANDLEX_OPTIONS);
 
 void setup() {
 #ifdef USE_SERIAL_DBG
@@ -34,7 +33,8 @@ void setup() {
     ota.begin(&sched);
     web.begin(&sched);
 
-    int tID = sched.add(appLoop, "main", 1000000); // every 1000000 micro sec = once a second call appLoop
+    int tID = sched.add(appLoop, "main",
+                        1000000);  // every 1000000 micro sec = once a second call appLoop
 
     ldr.begin(&sched);
     candles.begin(&sched);

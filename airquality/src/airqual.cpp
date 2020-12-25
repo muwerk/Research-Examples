@@ -12,71 +12,71 @@
 
 void appLoop();
 
-ustd::Scheduler sched(10,16,32);
+ustd::Scheduler sched(10, 16, 32);
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 
 #ifdef __ESP32__
-ustd::Dht dht("myDht",15);
+ustd::Dht dht("myDht", 15);
 #else
-ustd::Dht dht("myDht",D4);
+ustd::Dht dht("myDht", D4);
 #endif
-ustd::AirQuality airqual("myAirQuality", 0x5a, "myDht/sensor"); // I2C address of spark fun CCS811
+ustd::AirQuality airqual("myAirQuality", 0x5a, "myDht/sensor");  // I2C address of spark fun CCS811
 ustd::Pressure pressure("myPressure");
 
 void sensor_messages(String topic, String msg, String originator) {
 #ifdef USE_SERIAL_DBG
-    Serial.println("Switch received: "+topic+"|"+msg);
+    Serial.println("Switch received: " + topic + "|" + msg);
 #endif
     if (topic == "myDht/sensor/temperature") {
 #ifdef USE_SERIAL_DBG
-        Serial.println("Temperature: "+msg);
+        Serial.println("Temperature: " + msg);
 #endif
     }
     if (topic == "myDht/sensor/humidity") {
 #ifdef USE_SERIAL_DBG
-        Serial.println("Humidity: "+msg);
+        Serial.println("Humidity: " + msg);
 #endif
     }
     if (topic == "myAirQuality/sensor/co2") {
 #ifdef USE_SERIAL_DBG
-        Serial.println("CO2: "+msg);
+        Serial.println("CO2: " + msg);
 #endif
     }
     if (topic == "myAirQuality/sensor/voc") {
 #ifdef USE_SERIAL_DBG
-        Serial.println("VOC: "+msg);
+        Serial.println("VOC: " + msg);
 #endif
     }
 }
 
-uint8_t hwErrs=0;
-uint8_t i2cDevs=0;
+uint8_t hwErrs = 0;
+uint8_t i2cDevs = 0;
 bool i2c_checkAddress(uint8_t address) {
-    Wire.beginTransmission( address );
+    Wire.beginTransmission(address);
     byte error = Wire.endTransmission();
-    if (error==0) {
+    if (error == 0) {
         return true;
-    } else if (error==4) {
+    } else if (error == 4) {
         ++hwErrs;
     }
     return false;
 }
 
 void i2c_doctor() {
-    i2cDevs=0;
-    hwErrs=0;
-    for (uint8_t address=1; address<127; address++) {
+    i2cDevs = 0;
+    hwErrs = 0;
+    for (uint8_t address = 1; address < 127; address++) {
         if (i2c_checkAddress(address)) {
             ++i2cDevs;
             char msg[32];
-            sprintf(msg,"0x%02x",address);
-            sched.publish("i2c/doctor/device",msg);
+            sprintf(msg, "0x%02x", address);
+            sched.publish("i2c/doctor/device", msg);
         }
     }
-    sched.publish("i2c/doctor/devicecount",String(i2cDevs));
-    sched.publish("i2c/doctor/hwErrorCount",String(hwErrs));
+    sched.publish("i2c/doctor/devicecount", String(i2cDevs));
+    sched.publish("i2c/doctor/hwErrorCount", String(hwErrs));
 }
 
 void runDoctor(String topic, String msg, String originator) {
@@ -94,21 +94,21 @@ void setup() {
     int tID = sched.add(appLoop, "main", 1000000);
     dht.begin(&sched);
 
-    #ifdef __ESP32__
+#ifdef __ESP32__
     Wire.begin();
-    #else
+#else
     const int sclPin = D1;
     const int sdaPin = D2;
-    pinMode(sdaPin, INPUT_PULLUP); //Set input (SDA) pull-up resistor on
-    //Wire.setClock(2000000);
+    pinMode(sdaPin, INPUT_PULLUP);  // Set input (SDA) pull-up resistor on
+    // Wire.setClock(2000000);
     Wire.begin(sdaPin, sclPin);
-    // Wire.setClockStretchLimit(500);
-    #endif
-    
+// Wire.setClockStretchLimit(500);
+#endif
+
     airqual.begin(&sched);
     pressure.begin(&sched);
 
-    dht.registerHomeAssistant("Labor","Breadboard");
+    dht.registerHomeAssistant("Labor", "Breadboard");
     airqual.registerHomeAssistant("Labor", "Breadboard");
     pressure.registerHomeAssistant("Labor", "Breadboard");
 

@@ -20,15 +20,15 @@
 
 void appLoop();
 
-ustd::Scheduler sched(10,16,32);
+ustd::Scheduler sched(10, 16, 32);
 #ifdef __ESP__
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
-//ustd::Ota ota;
+// ustd::Ota ota;
 #endif
 
 #ifndef __ATTINY__
-ustd::Led led("myLed",LED_BUILTIN,false);
+ustd::Led led("myLed", LED_BUILTIN, false);
 #endif
 
 void setup() {
@@ -48,15 +48,15 @@ void setup() {
     // led.setMode(led.Mode::Wave,1000);
 }
 
-bool ls=false;
+bool ls = false;
 void appLoop() {
 #ifndef __ATTINY__
-    if (ls==false) {
+    if (ls == false) {
         led.set(true);
-        ls=true;
+        ls = true;
     } else {
         led.set(false);
-        ls=false;
+        ls = false;
     }
 #endif
 }

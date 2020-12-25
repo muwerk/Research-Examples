@@ -11,17 +11,17 @@
 
 void appLoop();
 
-ustd::Scheduler sched(10,16,32);
+ustd::Scheduler sched(10, 16, 32);
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 
 #ifdef __ESP32__
-//ustd::Dcc dcc("Märklin",ustd::Dcc::Mode::DCC, 21, 0, 26,25);
-ustd::Dcc dcc("Märklin",ustd::Dcc::Mode::DC, 21, 0);
+// ustd::Dcc dcc("Märklin",ustd::Dcc::Mode::DCC, 21, 0, 26,25);
+ustd::Dcc dcc("Märklin", ustd::Dcc::Mode::DC, 21, 0);
 #else
 #error Not implemented.
-//ustd::Dcc dcc("Märklin",D6,D7,D8);
+// ustd::Dcc dcc("Märklin",D6,D7,D8);
 #endif
 
 void setup() {
@@ -35,7 +35,7 @@ void setup() {
     dcc.begin(&sched);
 
     dcc.setTrainSpeed(20);
-    /* int tID = */sched.add(appLoop, "main", 1000000); 
+    /* int tID = */ sched.add(appLoop, "main", 1000000);
 }
 
 void appLoop() {
