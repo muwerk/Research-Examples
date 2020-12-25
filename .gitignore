@@ -1,3 +1,6 @@
 .vscode/
 lsp.log
-
+*~
+libalgobsec.a
+net.json
+.pio
