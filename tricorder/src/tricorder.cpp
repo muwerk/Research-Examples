@@ -6,7 +6,7 @@
 #include "mqtt.h"
 #include "ota.h"
 
-#include "gy906_temp.h"
+#include "temperature_gy906.h"
 
 void appLoop();
 
