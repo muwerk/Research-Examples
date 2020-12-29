@@ -1,9 +1,9 @@
 #define USE_SERIAL_DBG 1
 
-#include "../../../ustd/platform.h"
+#include "platform.h"
 #include "scheduler.h"
-#include "../../../munet/net.h"
-#include "../../../munet/mqtt.h"
+#include "net.h"
+#include "mqtt.h"
 #include "ota.h"
 
 #include "airq_bme280.h"

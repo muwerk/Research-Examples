@@ -8,6 +8,7 @@
 
 #include "airq_bsec_bme680.h"
 #include "temperature_mcp9808.h"
+#include "airq_bme280.h"
 
 void appLoop();
 
@@ -16,8 +17,9 @@ ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 
-ustd::AirQualityBsecBme680 airqual("AirQuality", BME680_I2C_ADDR_SECONDARY);
+ustd::AirQualityBsecBme680 airqual680("AirQuality680", BME680_I2C_ADDR_SECONDARY);
 ustd::TemperatureMCP9808 precTemp("PrecTemperature");
+ustd::AirQualityBme280 airqual280("AirQuality280", 0x76);
 
 uint8_t hwErrs = 0;
 uint8_t i2cDevs = 0;
@@ -65,10 +67,12 @@ void setup() {
     Wire.begin();
 #endif
 
-    airqual.begin(&sched);
+    airqual680.begin(&sched);
+    airqual280.begin(&sched);
     precTemp.begin(&sched);
 
-    airqual.registerHomeAssistant("Labor3", "Breadboard3");
+    airqual680.registerHomeAssistant("Labor3", "Breadboard3");
+    airqual280.registerHomeAssistant("Labor3-280", "Breadboard3");
     precTemp.registerHomeAssistant("Labor3PrecTemp", "Breadboard3");
 
     sched.subscribe(tID, "i2c/doctor",
