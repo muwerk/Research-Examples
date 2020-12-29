@@ -74,10 +74,10 @@ void setup() {
     precTemp.begin(&sched);
     dht.begin(&sched);
 
-    airqual680.registerHomeAssistant("Labor3", "Breadboard3");
-    airqual280.registerHomeAssistant("Labor3-280", "Breadboard3");
-    precTemp.registerHomeAssistant("Labor3PrecTemp", "Breadboard3");
-    dht.registerHomeAssistant("Labor3DHT", "Breadboard3");
+    airqual680.registerHomeAssistant("Labor3-BME680", "Breadboard3");
+    airqual280.registerHomeAssistant("Labor3-BME280", "Breadboard3");
+    precTemp.registerHomeAssistant("Labor3-MCP9808", "Breadboard3");
+    dht.registerHomeAssistant("Labor3-DHT22", "Breadboard3");
 
     sched.subscribe(tID, "i2c/doctor",
                     runDoctor);  // publish to <hostname>/i2c/doctor  to get enumerations of
