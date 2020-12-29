@@ -49,10 +49,6 @@ void runDoctor(String topic, String msg, String originator) {
     i2c_doctor();
 }
 
-//#if !defined(__ESP32__)
-// TwoWire wr;
-//#endif
-
 void setup() {
 #ifdef USE_SERIAL_DBG
     Serial.begin(115200);
@@ -61,19 +57,14 @@ void setup() {
     net.begin(&sched);
     mqtt.begin(&sched);
     ota.begin(&sched);
-    int tID = sched.add(appLoop, "main", 1000000);
+    int tID = sched.add(appLoop, "main", 3000000);
 
 #ifdef __ESP32__
     Wire.begin();
-#else
-    // const int sclPin = D1;
-    // const int sdaPin = D2;
-    // pinMode(sdaPin, INPUT_PULLUP); //Set input (SDA) pull-up resistor on
-    // wr.begin();  // sdaPin, sclPin);
 #endif
 
     airqual.begin(&sched);
-    // airqual.registerHomeAssistant("Labor3", "Breadboard3");
+    airqual.registerHomeAssistant("Labor3", "Breadboard3");
 
     sched.subscribe(tID, "i2c/doctor",
                     runDoctor);  // publish to <hostname>/i2c/doctor  to get enumerations of i2c
