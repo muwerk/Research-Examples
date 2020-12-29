@@ -7,7 +7,7 @@
 #include "ota.h"
 
 #include "dht_temphum.h"
-#include "airqual.h"
+#include "airq_ccs811.h"
 #include "pressure.h"
 
 void appLoop();
@@ -22,7 +22,8 @@ ustd::Dht dht("myDht", 15);
 #else
 ustd::Dht dht("myDht", D4);
 #endif
-ustd::AirQuality airqual("myAirQuality", 0x5a, "myDht/sensor");  // I2C address of spark fun CCS811
+ustd::AirQualityCCS811 airqual("myAirQuality", 0x5a,
+                               "myDht/sensor");  // I2C address of spark fun CCS811
 ustd::Pressure pressure("myPressure");
 
 void sensor_messages(String topic, String msg, String originator) {
