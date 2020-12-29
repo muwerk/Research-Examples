@@ -6,7 +6,7 @@
 #include "mqtt.h"
 #include "ota.h"
 
-#include "dht_temphum.h"
+#include "temp_hum_dht.h"
 
 void appLoop();
 

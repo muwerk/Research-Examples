@@ -14,7 +14,7 @@
 
 #include "clock7seg.h"
 #include "tsl2561.h"
-#include "dht_temphum.h"
+#include "temp_hum_dht.h"
 #include "pressure.h"
 #include "switch.h"
 #include "airq_ccs811.h"
