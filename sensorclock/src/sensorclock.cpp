@@ -17,7 +17,7 @@
 #include "dht_temphum.h"
 #include "pressure.h"
 #include "switch.h"
-#include "airqual.h"
+#include "airq_ccs811.h"
 
 void appLoop();
 
@@ -37,7 +37,7 @@ ustd::Switch sw2("sensorclock2", D6, ustd::Switch::Mode::Default, false, "clock/
 #else
 ustd::Clock7Seg clock7("clock", 0x70, 14, true, "tsl2561/sensor/unitilluminance");
 #endif
-ustd::AirQuality airq("air", 0x5a, "dht22/sensor");
+ustd::AirQualityCCS811 airq("air", 0x5a, "dht22/sensor");
 
 void setup() {
 #ifdef USE_SERIAL_DBG
