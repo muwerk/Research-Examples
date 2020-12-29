@@ -49,9 +49,9 @@ void runDoctor(String topic, String msg, String originator) {
     i2c_doctor();
 }
 
-#if !defined(__ESP32__)
-TwoWire wr;
-#endif
+//#if !defined(__ESP32__)
+// TwoWire wr;
+//#endif
 
 void setup() {
 #ifdef USE_SERIAL_DBG
@@ -69,10 +69,10 @@ void setup() {
     // const int sclPin = D1;
     // const int sdaPin = D2;
     // pinMode(sdaPin, INPUT_PULLUP); //Set input (SDA) pull-up resistor on
-    wr.begin();  // sdaPin, sclPin);
+    // wr.begin();  // sdaPin, sclPin);
 #endif
 
-    airqual.begin(&sched, Wire);
+    airqual.begin(&sched);
     // airqual.registerHomeAssistant("Labor3", "Breadboard3");
 
     sched.subscribe(tID, "i2c/doctor",
