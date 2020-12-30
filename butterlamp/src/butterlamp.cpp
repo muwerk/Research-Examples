@@ -9,7 +9,7 @@
 #include "../../../munet/web.h"
 
 #include "mup_util.h"
-#include "ldr.h"
+#include "illuminance_ldr.h"
 #include "neocandle.h"
 
 void appLoop();
@@ -37,7 +37,7 @@ void setup() {
     sched.add(appLoop, "main", 1000000);  // every 1000000 micro sec = once a second call appLoop
 
     ldr.begin(&sched);
-    candles.wind = 40;
+    candles.wind = 50;
     candles.begin(&sched);
 
     // Use Home Assistant's auto-discovery to register the butterlamp

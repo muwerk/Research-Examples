@@ -13,7 +13,7 @@
 #include "mup_util.h"
 
 #include "clock7seg.h"
-#include "tsl2561.h"
+#include "illuminance_tsl2561.h"
 #include "temp_hum_dht.h"
 #include "pressure.h"
 #include "switch.h"
