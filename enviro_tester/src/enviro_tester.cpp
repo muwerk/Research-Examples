@@ -6,6 +6,8 @@
 #include "mqtt.h"
 #include "ota.h"
 
+#include "mup_util.h"
+
 #include "airq_bsec_bme680.h"
 #include "temperature_mcp9808.h"
 #include "airq_bme280.h"
@@ -73,6 +75,13 @@ void setup() {
     airqual280.begin(&sched);
     precTemp.begin(&sched);
     dht.begin(&sched);
+
+    String tt = "doesn't work!";
+    if (ustd::readFriendlyName(tt)) {
+        Serial.println("OK: " + tt);
+    } else {
+        Serial.println("FALSE: " + tt);
+    }
 
     airqual680.registerHomeAssistant("Labor3-BME680", "Breadboard3");
     airqual280.registerHomeAssistant("Labor3-BME280", "Breadboard3");

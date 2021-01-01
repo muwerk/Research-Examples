@@ -4,3 +4,4 @@ lsp.log
 libalgobsec.a
 net.json
 .pio
+.ccls-cache
