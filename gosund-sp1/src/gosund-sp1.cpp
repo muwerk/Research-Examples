@@ -1,9 +1,10 @@
 #include "platform.h"
 #include "scheduler.h"
 
-#include "../../../munet/net.h"
-#include "../../../munet/mqtt.h"
+#include "net.h"
+#include "mqtt.h"
 #include "ota.h"
+#include "jsonfiles.h"
 
 #include "led.h"
 #include "switch.h"
@@ -28,9 +29,11 @@ void switch_messages(String topic, String msg, String originator) {
         if (msg == "on") {
             led1.set(true);
             relay.set(true);
+            ustd::muWriteVal("gosund/last_state", "on");
         } else if (msg == "off") {
             led1.set(false);
             relay.set(false);
+            ustd::muWriteVal("gosund/last_state", "off");
         }
     }
 }
@@ -43,16 +46,34 @@ void setup() {
     led1.begin(&sched);
     led2.begin(&sched);
     toggleswitch.begin(&sched);
+    String swMode = ustd::muReadVal("gosund/state_on_start", "off");
+    String lastState = ustd::muReadVal("gosund/last_state", "off");
+    if (swMode == "on") {
+        toggleswitch.setLogicalState(true);
+    } else if (swMode == "off") {
+        toggleswitch.setLogicalState(false);
+    } else if (swMode == "last") {
+        if (lastState == "on") {
+            toggleswitch.setLogicalState(true);
+        } else if (lastState == "off") {
+            toggleswitch.setLogicalState(false);
+        }
+    }
+
     relay.begin(&sched);
     power.begin(&sched);
-    power.setUserCalibrationFactors(
-        1.0, 1.0,
-        1.0);  // calib. factors for power (W), voltage (V) and current (A)
+
+    double VC = ustd::muReadVal("gosund/volt_calibration", "1.0").toFloat();
+    double AC = ustd::muReadVal("gosund/amp_calibration", "1.0").toFloat();
+    double WC = ustd::muReadVal("gosund/power_calibration", "1.0").toFloat();
+    // calib. factors for power (W), voltage (V) and current (A)
+    power.setUserCalibrationFactors(WC, VC, AC);
 
     String friendlyName;
     if (!ustd::readFriendlyName(friendlyName))
         friendlyName = "Gosund SP1";
-    toggleswitch.registerHomeAssistant(friendlyName, friendlyName, "mdi:power-socket-de");
+    String icon = ustd::muReadVal("gosund/homeassistant_icon", "mdi:power-socket-de");
+    toggleswitch.registerHomeAssistant(friendlyName, friendlyName, icon);
     power.registerHomeAssistant(friendlyName + " power", friendlyName);
 
     sched.subscribe(tID, "mySwitch/switch/state", switch_messages);
