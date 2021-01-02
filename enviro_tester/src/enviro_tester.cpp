@@ -7,6 +7,7 @@
 #include "ota.h"
 
 #include "mup_util.h"
+#include "jsonfiles.h"
 
 #include "airq_bsec_bme680.h"
 #include "temperature_mcp9808.h"
@@ -91,6 +92,41 @@ void setup() {
     sched.subscribe(tID, "i2c/doctor",
                     runDoctor);  // publish to <hostname>/i2c/doctor  to get enumerations of
                                  // i2c devices to MQTT omu/<hostname>/i2c/doctor/#
+
+    Serial.println("[-------------------------------------");
+    String val = ustd::muReadVal("murkel/sub1/sub2/sub3/statse", "wrong");
+    Serial.println(val);
+    bool ret = ustd::muWriteVal("murkel/sub1/sub2/sub3/statse", "dong");
+    if (ret)
+        Serial.println("Seems ok");
+    else
+        Serial.println("Failed write");
+    ret = ustd::muWriteVal("murkel/a/b/c/d", "lala");
+    if (ret)
+        Serial.println("Seems ok");
+    else
+        Serial.println("Failed write");
+    ret = ustd::muWriteVal("murkel/k", "lulu");
+    if (ret)
+        Serial.println("Seems ok");
+    else
+        Serial.println("Failed write");
+    ret = ustd::muWriteVal("makka/z", "tong");
+    if (ret)
+        Serial.println("Seems ok");
+    else
+        Serial.println("Failed write");
+    val = ustd::muReadVal("murkel/sub1/sub2/sub3/statse", "wrong");
+    Serial.println(val);
+    val = ustd::muReadVal("murkel/a/b/c/d", "wrong");
+    Serial.println(val);
+    val = ustd::muReadVal("murkel/k", "wrong");
+    Serial.println(val);
+    val = ustd::muReadVal("murkel/sub1/sub2/sub3/statse", "wrong");
+    Serial.println(val);
+    val = ustd::muReadVal("makka/z", "wrong");
+    Serial.println(val);
+    Serial.println("]------------------------------------");
 }
 
 void appLoop() {

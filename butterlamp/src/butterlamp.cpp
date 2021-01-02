@@ -41,8 +41,8 @@ void setup() {
     candles.begin(&sched);
 
     // Use Home Assistant's auto-discovery to register the butterlamp
-    ldr.registerHomeAssistant("Butterlampen-Helligkeitssensor", "Butterlampe");
-    candles.registerHomeAssistant("Butterlampe Eins", "Butterlampe");
+    // ldr.registerHomeAssistant("Butterlampe-1 Helligkeitssensor", "Butterlampe-1");
+    candles.registerHomeAssistant("Butterlampe Drei", "Butterlampe-3");
 }
 
 void appLoop() {
