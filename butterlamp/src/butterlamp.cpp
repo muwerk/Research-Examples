@@ -20,7 +20,7 @@ ustd::Mqtt mqtt;
 ustd::Ota ota;
 ustd::Web web;
 
-ustd::Ldr ldr("ldr", A0);
+// ustd::Ldr ldr("ldr", A0);
 ustd::NeoCandle candles("candles", NEOCANDLE_PIN, NEOCANDLE_NUMPIXELS, NEOCANDLEX_OPTIONS);
 
 void setup() {
@@ -36,13 +36,13 @@ void setup() {
     /* int tID = */
     sched.add(appLoop, "main", 1000000);  // every 1000000 micro sec = once a second call appLoop
 
-    ldr.begin(&sched);
+    // ldr.begin(&sched);
     candles.wind = 50;
     candles.begin(&sched);
 
     // Use Home Assistant's auto-discovery to register the butterlamp
     // ldr.registerHomeAssistant("Butterlampe-1 Helligkeitssensor", "Butterlampe-1");
-    candles.registerHomeAssistant("Butterlampe Drei", "Butterlampe-3");
+    candles.registerHomeAssistant("Butterlampe Zwei", "Butterlampe-2");
 }
 
 void appLoop() {
