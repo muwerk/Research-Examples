@@ -2,7 +2,7 @@
     "state_on_start": "last",
     "last_state": "off",
     "homeassistant_icon": "mdi:power-socket-de",
-    "volt_calibration": "1.0",
-    "amp_calibration": "1.0",
-    "power_calibration": "1.0"
+    "volt_calibration": 1.0,
+    "amp_calibration": 1.0,
+    "power_calibration": 1.0
 }
