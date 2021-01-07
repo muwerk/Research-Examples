@@ -27,7 +27,7 @@ ustd::Mqtt mqtt;
 ustd::Ota ota;
 ustd::Web web;
 
-ustd::Illuminance illumin("tsl2561", 0x39, "1x", "medium", 28.0);
+ustd::IlluminanceTsl2561 illumin("tsl2561", 0x39);
 ustd::Dht dht("dht22", 0, DHT22);  // port 0 == D3
 ustd::Pressure pressure("bmp085");
 #ifdef I2C_D1_D2
