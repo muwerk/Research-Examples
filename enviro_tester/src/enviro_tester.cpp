@@ -96,47 +96,47 @@ void setup() {
     Serial.println("[-------------------------------------");
     String val = ustd::muReadVal("murkel/sub1/sub2/sub3/statse", String("wrong"));
     Serial.println(val);
-    bool ret = ustd::muWriteVal("murkel/sub1/sub2/sub3/statse", (String)"dong");
+    bool ret = ustd::muWriteVal("murkel/sub1/sub2/sub3/statse", (String) "dong");
     if (ret)
         Serial.println("Seems ok");
     else
         Serial.println("Failed write");
-    ret = ustd::muWriteVal("murkel/a/b/c/d", (String)"lala");
+    ret = ustd::muWriteVal("murkel/a/b/c/d", (String) "lala");
     if (ret)
         Serial.println("Seems ok");
     else
         Serial.println("Failed write");
-    ret = ustd::muWriteVal("murkel/k", (String)"lulu");
+    ret = ustd::muWriteVal("murkel/k", (String) "lulu");
     if (ret)
         Serial.println("Seems ok");
     else
         Serial.println("Failed write");
-    ret = ustd::muWriteVal("makka/z", (String)"tong");
+    ret = ustd::muWriteVal("makka/z", (String) "tong");
     if (ret)
         Serial.println("Seems ok");
     else
         Serial.println("Failed write");
-    val = ustd::muReadVal("murkel/sub1/sub2/sub3/statse", (String)"wrong");
+    val = ustd::muReadVal("murkel/sub1/sub2/sub3/statse", (String) "wrong");
     Serial.println(val);
-    val = ustd::muReadVal("murkel/a/b/c/d", (String)"wrong");
+    val = ustd::muReadVal("murkel/a/b/c/d", (String) "wrong");
     Serial.println(val);
-    val = ustd::muReadVal("murkel/k", (String)"wrong");
+    val = ustd::muReadVal("murkel/k", (String) "wrong");
     Serial.println(val);
-    val = ustd::muReadVal("murkel/sub1/sub2/sub3/statse", (String)"wrong");
+    val = ustd::muReadVal("murkel/sub1/sub2/sub3/statse", (String) "wrong");
     Serial.println(val);
-    val = ustd::muReadVal("makka/z", (String)"wrong");
+    val = ustd::muReadVal("makka/z", (String) "wrong");
     Serial.println(val);
     Serial.println("]------------------------------------");
-    String msg="asdf";
-    ustd::muWriteVal( msg + "/blah/blubb/a", (String)"VaffanCulo" );
-    ustd::muWriteVal( msg + "/blah/blubb/b", (long)42 );
-    ustd::muWriteVal( msg + "/blah/blubb/c", (double)3.14159265359 );
-    ustd::muWriteVal( msg + "/blah/blubb/d", (bool)true );    
+    String msg = "asdf";
+    ustd::muWriteVal(msg + "/blah/blubb/a", (String) "VaffanCulo");
+    ustd::muWriteVal(msg + "/blah/blubb/b", (long)42);
+    ustd::muWriteVal(msg + "/blah/blubb/c", (double)3.14159265359);
+    ustd::muWriteVal(msg + "/blah/blubb/d", (bool)true);
 
-    String retS = ustd::muReadVal( msg + "/blah/blubb/a", (String)"Def" );
-    long retL = ustd::muReadVal( msg + "/blah/blubb/b", (long)99 );
-    double retD = ustd::muReadVal( msg + "/blah/blubb/c", (double)99.99 );
-    bool retB = ustd::muReadVal( msg + "/blah/blubb/d", (bool)false );    
+    String retS = ustd::muReadVal(msg + "/blah/blubb/a", (String) "Def");
+    long retL = ustd::muReadVal(msg + "/blah/blubb/b", (long)99);
+    double retD = ustd::muReadVal(msg + "/blah/blubb/c", (double)99.99);
+    bool retB = ustd::muReadVal(msg + "/blah/blubb/d", (bool)false);
 
     Serial.println(retS);
     Serial.println(retL);
