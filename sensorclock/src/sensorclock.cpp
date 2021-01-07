@@ -60,6 +60,7 @@ void setup() {
                            1000000);  // every 1000000 micro sec = once a second call appLoop
     clock7.begin(&sched);
     clock7.maxAlarmDuration = 10;
+    illumin.setMaxLux(200);
     illumin.begin(&sched);
     dht.begin(&sched);
     pressure.begin(&sched);
