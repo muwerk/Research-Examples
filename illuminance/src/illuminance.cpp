@@ -6,8 +6,8 @@
 #include "mqtt.h"
 #include "ota.h"
 
-#include "ldr.h"
-#include "tsl2561.h"
+#include "illuminance_ldr.h"
+#include "illuminance_tsl2561.h"
 
 void appLoop();
 
@@ -20,7 +20,7 @@ ustd::Ldr ldr("myLdr", A9);  // caution:  All pins connected to ADC #2 conflict 
 #else
 ustd::Ldr ldr("myLdr", A0);
 #endif
-ustd::Illuminance illum("myLum", 0x39);
+ustd::IlluminanceTsl2561 illum("myLum", 0x39);
 
 void setup() {
 #ifdef USE_SERIAL_DBG
@@ -35,8 +35,9 @@ void setup() {
     ldr.begin(&sched);
     illum.begin(&sched);
 
-    ldr.registerHomeAssistant("Labor LDR", "Enlightenment");
-    illum.registerHomeAssistant("Labor TSL2561", "Enlightenment");
+    // ldr.registerHomeAssistant("Labor LDR", "Enlightenment");
+    // illum.registerHomeAssistant("Labor TSL2561", "Enlightenment");
+
     // ldr.illuminanceSensor.pollTimeSec=1;
     // illum.illuminanceSensor.pollTimeSec=1;
 }
