@@ -23,7 +23,8 @@ SSD1306Wire display(0x3c, 21, 22);  // i2c, SDA, SCL ;
 
 ustd::Led led("indicator", 2, true);
 // ustd::Switch geiger("geiger", 15, ustd::Switch::Mode::Falling, false, "", 0, 0);
-ustd::FrequencyCounter geiger("geiger", 15, 0);
+ustd::FrequencyCounter geiger("geiger", 15, 0,
+                              ustd::FrequencyCounter::MeasureMode::LOWFREQUENCY_MEDIUM);
 
 void appLoop();
 
