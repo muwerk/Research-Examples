@@ -17,7 +17,7 @@ ustd::Scheduler sched(10, 16, 32);
 #else
 ustd::Scheduler sched(2, 2, 2);
 #endif
-ustd::Console con;
+ustd::SerialConsole con;
 
 #ifdef __ESP__
 ustd::Net net(LED_BUILTIN);
