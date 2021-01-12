@@ -1,4 +1,4 @@
-//#define USE_SERIAL_DBG 1
+#define USE_SERIAL_DBG 1
 
 #include "platform.h"
 #include "scheduler.h"
@@ -45,7 +45,6 @@ void app() {
 // application setup
 void setup() {
     DBG_INIT(115200);
-    DBG("\nStartup: " + WiFi.macAddress());
 
     // extend console
     /*
