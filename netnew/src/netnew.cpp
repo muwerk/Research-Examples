@@ -28,6 +28,7 @@ void setup() {
 }
 
 void appLoop() {
+    sched.publish("debug/msg","alive");
 }
 
 // Never add code to this loop, use appLoop() instead.
