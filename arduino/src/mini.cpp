@@ -1,4 +1,4 @@
-#define USE_SERIAL_DBG 1
+//#define USE_SERIAL_DBG 1
 
 #include "platform.h"
 #include "scheduler.h"
