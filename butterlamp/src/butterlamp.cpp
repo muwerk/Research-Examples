@@ -2,6 +2,7 @@
 
 #include "platform.h"
 #include "scheduler.h"
+#include "console.h"
 
 #include "net.h"
 #include "mqtt.h"
@@ -15,12 +16,13 @@
 void appLoop();
 
 ustd::Scheduler sched(10, 16, 32);
+ustd::SerialConsole con;
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
 ustd::Web web;
 
-// ustd::Ldr ldr("ldr", A0);
+ustd::Ldr ldr("ldr", A0);
 ustd::NeoCandle candles("candles", NEOCANDLE_PIN, NEOCANDLE_NUMPIXELS, NEOCANDLEX_OPTIONS);
 
 void setup() {
@@ -33,16 +35,40 @@ void setup() {
     ota.begin(&sched);
     web.begin(&sched);
 
+    ustd::jsonfile jf;
+    bool hasLdr = jf.readBool("neocandle/has_ldr", false);
+    String friendlyName = jf.readString("neocandle/friendly_name", "neocandle");
+    bool candleTimer = jf.readBool("neocandle/candle_timer", true);
+    bool registerHomeAssistant = jf.readBool("neocandle/homeassistant", false);
+    String startTime, endTime;
+    uint8_t sh, sm, eh, em;
+    if (candleTimer) {
+        startTime = jf.readString("neocandle/start_time", "18:00");
+        endTime = jf.readString("neocandle/end_time", "0:00");
+        if (!ustd::NeoCandle::parseHourMinuteString(startTime, &sh, &sm))
+            candleTimer = false;
+        if (!ustd::NeoCandle::parseHourMinuteString(endTime, &eh, &em))
+            candleTimer = false;
+    }
+
     /* int tID = */
     sched.add(appLoop, "main", 1000000);  // every 1000000 micro sec = once a second call appLoop
 
-    // ldr.begin(&sched);
+    if (hasLdr)
+        ldr.begin(&sched);
     candles.wind = 50;
-    candles.begin(&sched);
+    if (candleTimer) {
+        candles.begin(&sched, sh, sm, eh, em);
+    } else {
+        candles.begin(&sched);
+    }
 
     // Use Home Assistant's auto-discovery to register the butterlamp
-    // ldr.registerHomeAssistant("Butterlampe-1 Helligkeitssensor", "Butterlampe-1");
-    candles.registerHomeAssistant("Butterlampe Zwei", "Butterlampe-2");
+    if (registerHomeAssistant) {
+        if (hasLdr)
+            ldr.registerHomeAssistant(friendlyName + " Helligkeitssensor", "Butterlampe-1");
+        candles.registerHomeAssistant(friendlyName, friendlyName);
+    }
 }
 
 void appLoop() {
