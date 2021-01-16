@@ -1,7 +1,9 @@
-#define USE_SERIAL_DBG 1
+//#define USE_SERIAL_DBG 1
 
 #include "platform.h"
 #include "scheduler.h"
+
+#include "console.h"
 
 #include "net.h"
 #include "mqtt.h"
@@ -22,6 +24,8 @@
 void appLoop();
 
 ustd::Scheduler sched(10, 16, 32);
+ustd::SerialConsole con;
+
 ustd::Net net(LED_BUILTIN);
 ustd::Mqtt mqtt;
 ustd::Ota ota;
@@ -44,6 +48,8 @@ void setup() {
     Serial.begin(115200);
     Serial.println("Startup");
 #endif  // USE_SERIAL_DBG
+    con.begin(&sched);
+
     net.begin(&sched);
     mqtt.begin(&sched);
     ota.begin(&sched);
