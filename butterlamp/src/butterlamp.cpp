@@ -30,6 +30,7 @@ void setup() {
     Serial.begin(115200);
     Serial.println("Startup");
 #endif  // USE_SERIAL_DBG
+    con.begin(&sched);
     net.begin(&sched);
     mqtt.begin(&sched);
     ota.begin(&sched);
