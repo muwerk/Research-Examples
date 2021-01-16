@@ -42,7 +42,7 @@ void setup() {
     bool candleTimer = jf.readBool("neocandle/candle_timer", true);
     bool registerHomeAssistant = jf.readBool("neocandle/homeassistant", false);
     String startTime, endTime;
-    uint8_t sh, sm, eh, em;
+    int sh, sm, eh, em;
     if (candleTimer) {
         startTime = jf.readString("neocandle/start_time", "18:00");
         endTime = jf.readString("neocandle/end_time", "0:00");
