@@ -1,6 +1,7 @@
 {
     "state_on_start": "last",
     "last_state": "off",
+    "homeassistant_name": "Gosund-test",
     "homeassistant_icon": "mdi:power-socket-de",
     "volt_calibration": 1.0,
     "amp_calibration": 1.0,
