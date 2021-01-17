@@ -20,6 +20,7 @@
 #include "pressure.h"
 #include "switch.h"
 #include "airq_ccs811.h"
+#include "doctor.h"
 
 void appLoop();
 
@@ -31,6 +32,7 @@ ustd::Mqtt mqtt;
 ustd::Ota ota;
 ustd::Web web;
 
+ustd::Doctor doctor("doctor");
 ustd::IlluminanceTsl2561 illumin("tsl2561", 0x39);
 ustd::Dht dht("dht22", 0, DHT22);  // port 0 == D3
 ustd::Pressure pressure("bmp085");
@@ -55,6 +57,7 @@ void setup() {
     ota.begin(&sched);
     web.begin(&sched);
 
+    doctor.begin(&sched);
 #if defined(I2C_D1_D2)
 #ifdef USE_SERIAL_DBG
     Serial.println("Using slightly non-standard I2C port D1, D2");
@@ -62,8 +65,6 @@ void setup() {
     Wire.begin(D1, D2);  // SDA, SCL; Non-standard, from the old days...
 #endif
 
-    /*int tID =*/sched.add(appLoop, "main",
-                           1000000);  // every 1000000 micro sec = once a second call appLoop
     clock7.begin(&sched);
     clock7.maxAlarmDuration = 10;
     illumin.setMaxLux(200);
@@ -76,11 +77,14 @@ void setup() {
 #endif
     airq.begin(&sched);
 
-    // Use Home Assistant's auto-discovery to register sensors:
     illumin.registerHomeAssistant("Illuminance", "Sensor Uhr");
     dht.registerHomeAssistant("Klima", "Sensor Uhr");
     pressure.registerHomeAssistant("Luftdruck", "Sensor Uhr");
     airq.registerHomeAssistant("Luftquali", "Sensor Uhr");
+    /*int tID =*/sched.add(appLoop, "main",
+                           1000000);  // every 1000000 micro sec = once a second call appLoop
+
+    // Use Home Assistant's auto-discovery to register sensors:
 }
 
 void appLoop() {
