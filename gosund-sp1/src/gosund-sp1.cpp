@@ -1,5 +1,6 @@
 #include "platform.h"
 #include "scheduler.h"
+#include "doctor.h"
 
 #include "net.h"
 #include "mqtt.h"
@@ -14,6 +15,7 @@
 void appLoop();
 
 ustd::Scheduler sched(10, 16, 32);
+ustd::Doctor doc;
 
 ustd::Net net(13);  // use red led for network connection phase
 ustd::Mqtt mqtt;
@@ -46,6 +48,8 @@ void setup() {
     net.begin(&sched, ustd::Net::Netmode::AP, false);  // false: Never reboot on net failure
     mqtt.begin(&sched);
     ota.begin(&sched);
+
+    doc.begin(&sched);
 
     int tID = sched.add(appLoop, "main", 1000000);
 
