@@ -21,6 +21,7 @@
 #include "switch.h"
 #include "airq_ccs811.h"
 #include "doctor.h"
+#include "i2cdoctor.h"
 
 void appLoop();
 
@@ -33,6 +34,7 @@ ustd::Ota ota;
 ustd::Web web;
 
 ustd::Doctor doctor("doctor");
+ustd::I2CDoctor i2cdoctor("i2cdoctor");
 ustd::IlluminanceTsl2561 illumin("tsl2561", 0x39);
 ustd::Dht dht("dht22", 0, DHT22);  // port 0 == D3
 ustd::Pressure pressure("bmp085");
@@ -50,6 +52,8 @@ void setup() {
     Serial.begin(115200);
     Serial.println("Startup");
 #endif  // USE_SERIAL_DBG
+    doctor.begin(&sched);
+    i2cdoctor.begin(&sched);
     con.begin(&sched);
 
     net.begin(&sched);
@@ -57,7 +61,6 @@ void setup() {
     ota.begin(&sched);
     web.begin(&sched);
 
-    doctor.begin(&sched);
 #if defined(I2C_D1_D2)
 #ifdef USE_SERIAL_DBG
     Serial.println("Using slightly non-standard I2C port D1, D2");

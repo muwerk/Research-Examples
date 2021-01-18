@@ -13,7 +13,7 @@
 void appLoop();
 
 ustd::Scheduler sched(10, 16, 32);
-ustd::MuSerial muser("arduino", &Serial2);
+ustd::MuSerial muser("arduino", &Serial);
 
 #ifdef __ESP__
 ustd::Net net(LED_BUILTIN);
