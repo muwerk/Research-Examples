@@ -1,6 +1,6 @@
 //#define USE_SERIAL_DBG 1
 
-#include "platform.h"
+#include "ustd_platform.h"
 #include "scheduler.h"
 
 #include "console.h"
@@ -53,7 +53,7 @@ void setup() {
     Serial.println("Startup");
 #endif  // USE_SERIAL_DBG
     doctor.begin(&sched);
-    i2cdoctor.begin(&sched);
+    i2cdoctor.begin(&sched, &Wire);
     con.begin(&sched);
 
     net.begin(&sched);
