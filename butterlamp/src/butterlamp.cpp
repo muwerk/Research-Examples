@@ -1,6 +1,6 @@
 #define USE_SERIAL_DBG 1
 
-#include "platform.h"
+#include "ustd_platform.h"
 #include "scheduler.h"
 #include "console.h"
 #include "doctor.h"
