@@ -23,6 +23,8 @@
 #include "doctor.h"
 #include "i2cdoctor.h"
 
+#include "mup_oled.h"
+
 void appLoop();
 
 ustd::Scheduler sched(10, 16, 32);
@@ -42,10 +44,12 @@ ustd::Pressure pressure("bmp085");
 ustd::Clock7Seg clock7("clock", 0x70, D5, true, "tsl2561/sensor/unitilluminance");
 ustd::Switch sw1("sensorclock1", D7);
 ustd::Switch sw2("sensorclock2", D6, ustd::Switch::Mode::Default, false, "clock/alarm/off");
+ustd::SensorDisplay display("display",128,64,0x3c);
 #else
 ustd::Clock7Seg clock7("clock", 0x70, 14, true, "tsl2561/sensor/unitilluminance");
 #endif
 ustd::AirQualityCCS811 airq("air", 0x5a, "dht22/sensor");
+
 
 void setup() {
 #ifdef USE_SERIAL_DBG
@@ -61,12 +65,15 @@ void setup() {
     ota.begin(&sched);
     web.begin(&sched);
 
+
 #if defined(I2C_D1_D2)
 #ifdef USE_SERIAL_DBG
     Serial.println("Using slightly non-standard I2C port D1, D2");
 #endif
     Wire.begin(D1, D2);  // SDA, SCL; Non-standard, from the old days...
 #endif
+
+    display.begin(&sched, &mqtt);
 
     clock7.begin(&sched);
     clock7.maxAlarmDuration = 10;

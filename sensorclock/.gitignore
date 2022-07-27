@@ -1,4 +1,5 @@
 .pio
 data/net.json
 data/mqtt.json
+data/display.json
 lsp.log

@@ -1,8 +1,14 @@
-cp -v ../../ustd/*.h .pio/libdeps/esp12e/ustd/
-cp -v ../../muwerk/*.h .pio/libdeps/esp12e/muwerk/
-cp -v ../../munet/*.h .pio/libdeps/esp12e/munet/
 
-cp -v ../../ustd/*.h .pio/libdeps/huzzah/ustd/
-cp -v ../../muwerk/*.h .pio/libdeps/huzzah/muwerk/
-cp -v ../../munet/*.h .pio/libdeps/huzzah/munet/
+for f in .pio/libdeps/*; do
+    if [ -d "$f" ]; then
+        echo Updating $f with local library versions:
+        rm -v $f/ustd/*.h
+        cp -v ../../ustd/*.h $f/ustd/
+        cp -v ../../muwerk/*.h $f/muwerk/
+        cp -v ../../munet/*.h $f/munet/
+        cp -v ../../mupplet-core/src/*.h $f/mupplet-core/src
+        mkdir -p $f/mupplet-sensor/src
+        cp -v ../../mupplet-sensor/src/*.h $f/mupplet-sensor/src
+    fi
+done
 
