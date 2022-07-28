@@ -1,6 +1,5 @@
 {
-    "layout": "SS|SS",
-    "formats": "FFFF",
-    "topics": ["hastates/sensor/temperature/state","hastates/sensor/temperature2/state","hastates/sensor/temperature3/state","temperature4/state"],
-    "captions": ["Balkony C", "North C", "Studio C", "Living C"]
+    "layout": "II|FF",
+    "topics": ["air/sensor/co2", "air/sensor/voc", "!hastates/sensor/balkon_temperature/state", "dht22/sensor/temperature"],
+    "captions": ["CO2 _ppm", "VOC _ppb", "Balkon _C", "Uhr _C"]
 }
